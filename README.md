@@ -1,2 +1,2 @@
 # Blindfold
-Tool for understanding how visually impaired programmers comprehend Java code.
+A tool for understanding how visually impaired programmers comprehend Java code.

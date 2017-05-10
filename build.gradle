@@ -1,0 +1,64 @@
+apply plugin: "application"
+apply plugin: "antlr"
+
+version = "0.0.1"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+mainClassName = "com.miyagilabs.blindfold.Demo"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    antlr group: "org.antlr", name: "antlr4", version: "4.7"
+    testCompile group: "junit", name: "junit", version: "4.12"
+}
+
+jar {
+    manifest {
+        attributes "Specification-Title": "Blindfold"
+        attributes "Specification-Version": version
+        attributes "Specification-Vendor": "Miyagilabs"
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events "FAILED", "PASSED", "SKIPPED", "STANDARD_ERROR"
+        showCauses = true
+        showExceptions = true
+        showStackTraces = true
+        showStandardStreams = true
+        afterSuite { desc, result ->
+            if(!desc.parent) {
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                def startItem = "|  ", endItem = "  |"
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println("\n" + ("-" * repeatLength) + "\n" + startItem + output + endItem + "\n" + ("-" * repeatLength))
+            }
+        }
+    }
+}
+
+generateGrammarSource {
+    arguments += ["-package", "com.miyagilabs.blindfold.antlr4", "-long-messages"]
+    doLast {
+        copy {
+            from "build/generated-src/antlr/main/"
+            include "*.java"
+            into "src/main/java/com/miyagilabs/blindfold/antlr4"
+        }
+        delete "build/generated-src/antlr"
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.10"
+}
