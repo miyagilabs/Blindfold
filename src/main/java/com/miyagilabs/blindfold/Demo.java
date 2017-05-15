@@ -34,7 +34,8 @@ public class Demo {
                 + "        public Demo() { }" // Node 2
                 + "        public void method() {" // Node 3
                 + "            if(1 == 1) { } " // Node 4
-                + "        }";
+                + "        }"
+                + "    }";
         ANTLRInputStream in = new ANTLRInputStream(code);
         Java8Lexer lexer = new Java8Lexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

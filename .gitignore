@@ -5,3 +5,5 @@
 *.ear
 hs_err_pid*
 /.nb-gradle/
+/build/
+.gradle
