@@ -279,8 +279,12 @@ classDeclaration
 	;
 
 normalClassDeclaration
-	:	classModifier* 'class' Identifier typeParameters? superclass? superinterfaces? classBody
+	:	normalClassDefinition classBody
 	;
+
+normalClassDefinition
+    :   classModifier* 'class' Identifier typeParameters? superclass? superinterfaces?
+    ;
 
 classModifier
 	:	annotation

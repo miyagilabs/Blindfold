@@ -42,13 +42,13 @@ public class StructureListener extends Java8BaseListener {
     @Override
     public void enterNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
         if(currentNode == null) {
-            currentNode = new Node(ctx);
+            currentNode = new Node(ctx.normalClassDefinition());
             Tree tree = new Tree(currentNode);
             forest.addTree(tree);
         }
         else {
             previousNode = currentNode;
-            currentNode = new Node(ctx);
+            currentNode = new Node(ctx.normalClassDefinition());
             previousNode.addChild(currentNode);
         }
     }

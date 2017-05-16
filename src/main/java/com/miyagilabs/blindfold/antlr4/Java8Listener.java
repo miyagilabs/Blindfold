@@ -438,6 +438,16 @@ public interface Java8Listener extends ParseTreeListener {
 	 */
 	void exitNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Java8Parser#normalClassDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterNormalClassDefinition(Java8Parser.NormalClassDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#normalClassDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitNormalClassDefinition(Java8Parser.NormalClassDefinitionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Java8Parser#classModifier}.
 	 * @param ctx the parse tree
 	 */

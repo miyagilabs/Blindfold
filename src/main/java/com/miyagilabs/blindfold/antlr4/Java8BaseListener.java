@@ -532,6 +532,18 @@ public class Java8BaseListener implements Java8Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNormalClassDefinition(Java8Parser.NormalClassDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNormalClassDefinition(Java8Parser.NormalClassDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterClassModifier(Java8Parser.ClassModifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
