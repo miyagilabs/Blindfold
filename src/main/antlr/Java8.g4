@@ -429,8 +429,12 @@ unannArrayType
 	;
 
 methodDeclaration
-	:	methodModifier* methodHeader methodBody
+	:	methodDefinition methodBody
 	;
+
+methodDefinition
+    :   methodModifier* methodHeader
+    ;
 
 methodModifier
 	:	annotation
@@ -514,8 +518,12 @@ staticInitializer
 	;
 
 constructorDeclaration
-	:	constructorModifier* constructorDeclarator throws_? constructorBody
+	:	constructorDefinition constructorBody
 	;
+
+constructorDefinition
+    :   constructorModifier* constructorDeclarator throws_?
+    ;
 
 constructorModifier
 	:	annotation
@@ -574,11 +582,15 @@ enumBodyDeclarations
 interfaceDeclaration
 	:	normalInterfaceDeclaration
 	|	annotationTypeDeclaration
-	;
+    ;
 
 normalInterfaceDeclaration
-	:	interfaceModifier* 'interface' Identifier typeParameters? extendsInterfaces? interfaceBody
-	;
+	:	normalInterfaceDefinition interfaceBody
+    ;
+
+normalInterfaceDefinition
+    :   interfaceModifier* 'interface' Identifier typeParameters? extendsInterfaces?
+    ;
 
 interfaceModifier
 	:	annotation
@@ -797,16 +809,24 @@ statementExpression
 	;
 
 ifThenStatement
-	:	'if' '(' expression ')' statement
+	:	ifDefinition statement
 	;
 
 ifThenElseStatement
-	:	'if' '(' expression ')' statementNoShortIf 'else' statement
+	:	ifDefinition statementNoShortIf elseDefinition statement
 	;
 
 ifThenElseStatementNoShortIf
-	:	'if' '(' expression ')' statementNoShortIf 'else' statementNoShortIf
+	:	ifDefinition statementNoShortIf elseDefinition statementNoShortIf
 	;
+
+ifDefinition
+    :   'if' '(' expression ')'
+    ;
+
+elseDefinition
+    :   'else'
+    ;
 
 assertStatement
 	:	'assert' expression ';'

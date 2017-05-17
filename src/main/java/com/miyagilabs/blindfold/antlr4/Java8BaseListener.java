@@ -880,6 +880,18 @@ public class Java8BaseListener implements Java8Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethodDefinition(Java8Parser.MethodDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodDefinition(Java8Parser.MethodDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMethodModifier(Java8Parser.MethodModifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1084,6 +1096,18 @@ public class Java8BaseListener implements Java8Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterConstructorDefinition(Java8Parser.ConstructorDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstructorDefinition(Java8Parser.ConstructorDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterConstructorModifier(Java8Parser.ConstructorModifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1235,6 +1259,18 @@ public class Java8BaseListener implements Java8Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNormalInterfaceDefinition(Java8Parser.NormalInterfaceDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNormalInterfaceDefinition(Java8Parser.NormalInterfaceDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1727,6 +1763,30 @@ public class Java8BaseListener implements Java8Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfDefinition(Java8Parser.IfDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfDefinition(Java8Parser.IfDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElseDefinition(Java8Parser.ElseDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseDefinition(Java8Parser.ElseDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

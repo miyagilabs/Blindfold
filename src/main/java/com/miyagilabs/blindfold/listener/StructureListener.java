@@ -59,28 +59,28 @@ public class StructureListener extends Java8BaseListener {
     }
 
     @Override
-    public void enterInterfaceDeclaration(Java8Parser.InterfaceDeclarationContext ctx) {
+    public void enterNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
         if(currentNode == null) {
-            currentNode = new Node(ctx);
+            currentNode = new Node(ctx.normalInterfaceDefinition());
             Tree tree = new Tree(currentNode);
             forest.addTree(tree);
         }
         else {
             previousNode = currentNode;
-            currentNode = new Node(ctx);
+            currentNode = new Node(ctx.normalInterfaceDefinition());
             previousNode.addChild(currentNode);
         }
     }
 
     @Override
-    public void exitInterfaceDeclaration(Java8Parser.InterfaceDeclarationContext ctx) {
+    public void exitNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
         currentNode = null;
     }
 
     @Override
     public void enterConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
         previousNode = currentNode;
-        currentNode = new Node(ctx);
+        currentNode = new Node(ctx.constructorDefinition());
         previousNode.addChild(currentNode);
     }
 
@@ -92,7 +92,7 @@ public class StructureListener extends Java8BaseListener {
     @Override
     public void enterMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
         previousNode = currentNode;
-        currentNode = new Node(ctx);
+        currentNode = new Node(ctx.methodDefinition());
         previousNode.addChild(currentNode);
     }
 
@@ -102,14 +102,26 @@ public class StructureListener extends Java8BaseListener {
     }
 
     @Override
-    public void enterIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
+    public void enterIfDefinition(Java8Parser.IfDefinitionContext ctx) {
         previousNode = currentNode;
         currentNode = new Node(ctx);
         previousNode.addChild(currentNode);
     }
 
     @Override
-    public void exitIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
+    public void exitIfDefinition(Java8Parser.IfDefinitionContext ctx) {
+        currentNode = previousNode;
+    }
+
+    @Override
+    public void enterElseDefinition(Java8Parser.ElseDefinitionContext ctx) {
+        previousNode = currentNode;
+        currentNode = new Node(ctx);
+        previousNode.addChild(currentNode);
+    }
+
+    @Override
+    public void exitElseDefinition(Java8Parser.ElseDefinitionContext ctx) {
         currentNode = previousNode;
     }
 }

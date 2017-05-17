@@ -728,6 +728,16 @@ public interface Java8Listener extends ParseTreeListener {
 	 */
 	void exitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Java8Parser#methodDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodDefinition(Java8Parser.MethodDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#methodDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodDefinition(Java8Parser.MethodDefinitionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Java8Parser#methodModifier}.
 	 * @param ctx the parse tree
 	 */
@@ -898,6 +908,16 @@ public interface Java8Listener extends ParseTreeListener {
 	 */
 	void exitConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Java8Parser#constructorDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstructorDefinition(Java8Parser.ConstructorDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#constructorDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstructorDefinition(Java8Parser.ConstructorDefinitionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Java8Parser#constructorModifier}.
 	 * @param ctx the parse tree
 	 */
@@ -1027,6 +1047,16 @@ public interface Java8Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Java8Parser#normalInterfaceDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterNormalInterfaceDefinition(Java8Parser.NormalInterfaceDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#normalInterfaceDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitNormalInterfaceDefinition(Java8Parser.NormalInterfaceDefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#interfaceModifier}.
 	 * @param ctx the parse tree
@@ -1437,6 +1467,26 @@ public interface Java8Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Java8Parser#ifDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfDefinition(Java8Parser.IfDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#ifDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfDefinition(Java8Parser.IfDefinitionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Java8Parser#elseDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseDefinition(Java8Parser.ElseDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#elseDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseDefinition(Java8Parser.ElseDefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#assertStatement}.
 	 * @param ctx the parse tree
