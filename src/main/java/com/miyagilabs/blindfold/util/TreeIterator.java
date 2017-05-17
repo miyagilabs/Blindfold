@@ -27,9 +27,9 @@ import java.util.Stack;
 public class TreeIterator implements Iterator<Node> {
     private final Stack<Node> stack;
 
-    public TreeIterator(Node root) {
+    public TreeIterator(Tree tree) {
         this.stack = new Stack<>();
-        stack.push(root);
+        stack.push(tree.getRoot());
     }
 
     @Override

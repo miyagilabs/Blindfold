@@ -14,38 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.miyagilabs.blindfold.util;
+package com.miyagilabs.blindfold.structure;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.antlr.v4.runtime.ParserRuleContext;
+import com.miyagilabs.blindfold.util.Forest;
 
 /**
  *
  * @author Görkem Mülayim
  */
-public class Node {
-    private final List<Node> children;
-    private final ParserRuleContext context;
+public interface StructureGenerator {
+    Forest generate(String code);
 
-    public Node(ParserRuleContext context) {
-        this.children = new ArrayList<>(8);
-        this.context = context;
-    }
-
-    public Node getChild(int index) {
-        return children.get(index);
-    }
-
-    public void addChild(Node child) {
-        children.add(child);
-    }
-
-    public int getChildCount() {
-        return children.size();
-    }
-
-    public ParserRuleContext getContext() {
-        return this.context;
-    }
+    Forest getForest();
 }

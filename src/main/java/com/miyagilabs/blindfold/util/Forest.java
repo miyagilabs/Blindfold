@@ -19,13 +19,13 @@ package com.miyagilabs.blindfold.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  *
  * @author Görkem Mülayim
  */
 public class Forest implements Iterable<Tree> {
-
     private final List<Tree> forest;
 
     public Forest() {
@@ -43,5 +43,9 @@ public class Forest implements Iterable<Tree> {
     @Override
     public Iterator<Tree> iterator() {
         return forest.iterator();
+    }
+
+    public ListIterator<Tree> listIterator() {
+        return forest.listIterator();
     }
 }

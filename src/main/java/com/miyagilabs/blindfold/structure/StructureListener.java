@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.miyagilabs.blindfold.listener;
+package com.miyagilabs.blindfold.structure;
 
 import com.miyagilabs.blindfold.antlr4.Java8BaseListener;
 import com.miyagilabs.blindfold.antlr4.Java8Parser;
@@ -31,12 +31,8 @@ public class StructureListener extends Java8BaseListener {
     private Node currentNode;
     private Node previousNode;
 
-    public StructureListener() {
-        forest = new Forest();
-    }
-
-    public Forest getStructure() {
-        return forest;
+    public StructureListener(StructureGenerator structureGenerator) {
+        this.forest = structureGenerator.getForest();
     }
 
     @Override
@@ -59,7 +55,8 @@ public class StructureListener extends Java8BaseListener {
     }
 
     @Override
-    public void enterNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
+    public void enterNormalInterfaceDeclaration(
+            Java8Parser.NormalInterfaceDeclarationContext ctx) {
         if(currentNode == null) {
             currentNode = new Node(ctx.normalInterfaceDefinition());
             Tree tree = new Tree(currentNode);

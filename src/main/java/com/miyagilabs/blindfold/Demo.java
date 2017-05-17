@@ -16,13 +16,12 @@
  */
 package com.miyagilabs.blindfold;
 
-import com.miyagilabs.blindfold.antlr4.Java8Lexer;
-import com.miyagilabs.blindfold.antlr4.Java8Parser;
-import com.miyagilabs.blindfold.listener.StructureListener;
+import com.miyagilabs.blindfold.structure.BaseStructureGenerator;
+import com.miyagilabs.blindfold.structure.StructureGenerator;
 import com.miyagilabs.blindfold.util.Forest;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import com.miyagilabs.blindfold.util.Node;
+import com.miyagilabs.blindfold.util.Tree;
+import java.util.ListIterator;
 
 /**
  *
@@ -37,18 +36,26 @@ public class Demo {
                 + "        }"
                 + "    }"
                 + "public interface Test { }"; // Node 5
-        ANTLRInputStream in = new ANTLRInputStream(code);
-        Java8Lexer lexer = new Java8Lexer(in);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        Java8Parser parser = new Java8Parser(tokens);
-        Java8Parser.CompilationUnitContext t = parser.compilationUnit();
-        StructureListener listener = new StructureListener();
-        ParseTreeWalker.DEFAULT.walk(listener, t);
-        Forest forest = listener.getStructure();
+        StructureGenerator structureGenerator = new BaseStructureGenerator();
+        Forest forest = structureGenerator.generate(code);
+
+        System.out.println("-Iterator-");
         forest.forEach(tree -> {
             tree.forEach(node -> {
                 System.out.println(node.getContext().getText());
             });
         });
+
+        System.out.println();
+
+        System.out.println("-List Iterator-");
+        ListIterator<Tree> forestListIterator = forest.listIterator();
+        while(forestListIterator.hasNext()) {
+            Tree tree = forestListIterator.next();
+            ListIterator<Node> treeListIterator = tree.listIterator();
+            while(treeListIterator.hasNext()) {
+                System.out.println(treeListIterator.next().getContext().getText());
+            }
+        }
     }
 }
