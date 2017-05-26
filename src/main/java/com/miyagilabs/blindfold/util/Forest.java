@@ -32,6 +32,11 @@ public class Forest implements Iterable<Tree> {
         forest = new ArrayList<>(1);
     }
 
+    @Override
+    public Iterator<Tree> iterator() {
+        return forest.iterator();
+    }
+
     public void addTree(Tree tree) {
         forest.add(tree);
     }
@@ -40,9 +45,8 @@ public class Forest implements Iterable<Tree> {
         return forest.get(index);
     }
 
-    @Override
-    public Iterator<Tree> iterator() {
-        return forest.iterator();
+    public int size() {
+        return forest.size();
     }
 
     public ListIterator<Tree> listIterator() {
