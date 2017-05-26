@@ -30,8 +30,8 @@ import org.junit.Test;
  * @author Görkem Mülayim
  */
 public class TreeIteratorTest {
-    private Tree tree1;
-    private Tree tree2;
+    private final Tree tree1;
+    private final Tree tree2;
 
     public TreeIteratorTest() {
         String code
@@ -74,7 +74,8 @@ public class TreeIteratorTest {
             treeIterator1.next();
         }
         boolean result = treeIterator1.hasNext();
-        assertEquals(expResult, result);
+        assertEquals("hasNext method, of class TreeIterator's expected result is wrong.", expResult,
+                result);
 
         Iterator<Node> treeIterator2 = new TreeIterator(tree2);
         expResult = true;
@@ -106,6 +107,6 @@ public class TreeIteratorTest {
         Iterator<Node> treeIterator2 = new TreeIterator(tree2);
         treeIterator2.next();
         treeIterator2.next();
-        fail("next method, of class TreeIterator should throw NoSuchElementexception.");
+        fail("next method, of class TreeIterator should throw NoSuchElementException.");
     }
 }
