@@ -26,7 +26,7 @@ import org.junit.Test;
  *
  * @author Görkem Mülayim
  */
-public class BaseStructureGeneratorTest {
+public class BaseGeneratorTest {
     private final static String CODE
             = "public class firstClass {\n" // Tree 1, Node 1
             + "    private int x;\n"
@@ -52,37 +52,37 @@ public class BaseStructureGeneratorTest {
             + "private class secondClass extends firstClass {}"; // Tree 2, Node 1
 
     /**
-     * Test of getForest method, of class BaseStructureGenerator.
+     * Test of getForest method, of class BaseGenerator.
      */
     @Test
     public void testGetForest() {
-        StructureGenerator structureGenerator = new BaseStructureGenerator();
-        Forest expResult = structureGenerator.generate(CODE);
-        Forest result = structureGenerator.getForest();
+        Generator generator = new BaseGenerator();
+        Forest expResult = generator.generate(CODE);
+        Forest result = generator.getForest();
         assertEquals(
-                "getForest method, of class BaseStructureGenerator's expected result is wrong.",
+                "getForest method, of class BaseGenerator's expected result is wrong.",
                 expResult, result);
     }
 
     /**
-     * Test of generate method, of class BaseStructureGenerator.
+     * Test of generate method, of class BaseGenerator.
      */
     @Test
     public void testGenerate() {
-        StructureGenerator structureGenerator = new BaseStructureGenerator();
-        Forest result = structureGenerator.generate(CODE);
+        Generator generator = new BaseGenerator();
+        Forest result = generator.generate(CODE);
         int expSize = 2;
-        assertEquals("generate method, of class BaseStructureGenerator's expected result is wrong.",
+        assertEquals("generate method, of class BaseGenerator's expected result is wrong.",
                 expSize, result.size());
 
         Tree tree1 = result.getTree(0);
         expSize = 14;
-        assertEquals("generate method, of class BaseStructureGenerator's expected result is wrong.",
+        assertEquals("generate method, of class BaseGenerator's expected result is wrong.",
                 expSize, tree1.size());
 
         Tree tree2 = result.getTree(1);
         expSize = 1;
-        assertEquals("generate method, of class BaseStructureGenerator's expected result is wrong.",
+        assertEquals("generate method, of class BaseGenerator's expected result is wrong.",
                 expSize, tree2.size());
     }
 }

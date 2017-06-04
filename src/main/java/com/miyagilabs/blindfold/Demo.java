@@ -16,8 +16,8 @@
  */
 package com.miyagilabs.blindfold;
 
-import com.miyagilabs.blindfold.structure.BaseStructureGenerator;
-import com.miyagilabs.blindfold.structure.StructureGenerator;
+import com.miyagilabs.blindfold.structure.BaseGenerator;
+import com.miyagilabs.blindfold.structure.Generator;
 import com.miyagilabs.blindfold.util.Forest;
 import com.miyagilabs.blindfold.util.Node;
 import com.miyagilabs.blindfold.util.Tree;
@@ -36,8 +36,8 @@ public class Demo {
                 + "        }"
                 + "    }"
                 + "public interface Test { }"; // Node 5
-        StructureGenerator structureGenerator = new BaseStructureGenerator();
-        Forest forest = structureGenerator.generate(code);
+        Generator generator = new BaseGenerator();
+        Forest forest = generator.generate(code);
 
         System.out.println("-Iterator-");
         forest.forEach(tree -> {

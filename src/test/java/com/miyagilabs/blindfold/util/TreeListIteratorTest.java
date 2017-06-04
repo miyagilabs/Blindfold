@@ -19,8 +19,8 @@ package com.miyagilabs.blindfold.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.miyagilabs.blindfold.structure.BaseStructureGenerator;
-import com.miyagilabs.blindfold.structure.StructureGenerator;
+import com.miyagilabs.blindfold.structure.BaseGenerator;
+import com.miyagilabs.blindfold.structure.Generator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import org.junit.Test;
@@ -57,8 +57,8 @@ public class TreeListIteratorTest {
                 + "}\n"
                 + ""
                 + "private class secondClass extends firstClass {}"; // Tree 2, Node 1
-        StructureGenerator structureGenerator = new BaseStructureGenerator();
-        Forest forest = structureGenerator.generate(code);
+        Generator generator = new BaseGenerator();
+        Forest forest = generator.generate(code);
         tree1 = forest.getTree(0);
         tree2 = forest.getTree(1);
     }

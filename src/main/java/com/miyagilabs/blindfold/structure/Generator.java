@@ -22,7 +22,7 @@ import com.miyagilabs.blindfold.util.Forest;
  *
  * @author Görkem Mülayim
  */
-public interface StructureGenerator {
+public interface Generator {
     Forest generate(String code);
 
     Forest getForest();

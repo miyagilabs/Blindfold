@@ -27,7 +27,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  *
  * @author Görkem Mülayim
  */
-public class BaseStructureGenerator implements StructureGenerator {
+public class BaseGenerator implements Generator {
     private Forest forest;
 
     @Override
@@ -43,7 +43,7 @@ public class BaseStructureGenerator implements StructureGenerator {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Java8Parser parser = new Java8Parser(tokens);
         Java8Parser.CompilationUnitContext ast = parser.compilationUnit();
-        StructureListener listener = new StructureListener(this);
+        Listener listener = new Listener(this);
         ParseTreeWalker.DEFAULT.walk(listener, ast);
         return forest;
     }

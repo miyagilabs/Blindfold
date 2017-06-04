@@ -26,12 +26,12 @@ import com.miyagilabs.blindfold.util.Tree;
  *
  * @author Görkem Mülayim
  */
-public class StructureListener extends Java8BaseListener {
+public class Listener extends Java8BaseListener {
     private final Forest forest;
     private Node currentNode;
     private Node previousNode;
 
-    public StructureListener(StructureGenerator structureGenerator) {
+    public Listener(Generator structureGenerator) {
         this.forest = structureGenerator.getForest();
     }
 
