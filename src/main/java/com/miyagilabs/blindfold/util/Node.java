@@ -17,7 +17,9 @@
 package com.miyagilabs.blindfold.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 /**
@@ -25,6 +27,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
  * @author Görkem Mülayim
  */
 public class Node {
+    private Node parent;
     private final List<Node> children;
     private final ParserRuleContext context;
 
@@ -33,11 +36,33 @@ public class Node {
         this.context = context;
     }
 
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
     public Node getChild(int index) {
         return children.get(index);
     }
 
+    public List<Node> getChildren() {
+        return Collections.unmodifiableList(children);
+    }
+
+    public int indexOfChild(Node node) {
+        for(int i = 0; i < children.size(); i++) {
+            if(children.get(i).equals(node)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void addChild(Node child) {
+        child.setParent(this);
         children.add(child);
     }
 
@@ -47,5 +72,31 @@ public class Node {
 
     public ParserRuleContext getContext() {
         return this.context;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if(this == object) {
+            return true;
+        }
+        if(object == null) {
+            return false;
+        }
+        if(!this.getClass().equals(object.getClass())) {
+            return false;
+        }
+        Node node = (Node) object;
+        if(this.hashCode() != node.hashCode()) {
+            return false;
+        }
+        return this.children.equals(node.getChildren()) && this.context.equals(node.getContext());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.children);
+        hash = 79 * hash + Objects.hashCode(this.context);
+        return hash;
     }
 }

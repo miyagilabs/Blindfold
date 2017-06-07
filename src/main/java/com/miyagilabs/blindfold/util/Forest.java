@@ -45,6 +45,10 @@ public class Forest implements Iterable<Tree> {
         return forest.get(index);
     }
 
+    public int indexOfTree(Tree tree) {
+        return forest.indexOf(tree);
+    }
+
     public int size() {
         return forest.size();
     }

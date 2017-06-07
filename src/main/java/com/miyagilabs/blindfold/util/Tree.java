@@ -18,6 +18,7 @@ package com.miyagilabs.blindfold.util;
 
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Objects;
 
 /**
  *
@@ -52,5 +53,31 @@ public class Tree implements Iterable<Node> {
             treeIterator.next();
         }
         return size;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if(this == object) {
+            return true;
+        }
+        if(object == null) {
+            return false;
+        }
+        if(!this.getClass().equals(object.getClass())) {
+            return false;
+        }
+        Tree tree = (Tree) object;
+        if(this.hashCode() != tree.hashCode()) {
+            return false;
+        }
+        return this.root.equals(tree.getRoot()) && this.size == tree.size();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.root);
+        hash = 23 * hash + this.size;
+        return hash;
     }
 }
