@@ -1,5 +1,6 @@
 apply plugin: "application"
 apply plugin: "antlr"
+apply plugin: "jacoco"
 
 version = "0.0.1"
 sourceCompatibility = "1.8"
@@ -56,6 +57,24 @@ generateGrammarSource {
             into "src/main/java/com/miyagilabs/blindfold/antlr4"
         }
         delete "build/generated-src/antlr"
+    }
+}
+
+jacoco {
+    toolVersion = "0.7.9"
+}
+
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories = files(
+            classDirectories.files.collect {
+                fileTree(dir: it, exclude: "com/miyagilabs/blindfold/antlr4/**")
+            })
+    }
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled true
     }
 }
 
