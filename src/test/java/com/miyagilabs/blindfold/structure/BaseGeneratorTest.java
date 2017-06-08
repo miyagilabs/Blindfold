@@ -48,7 +48,7 @@ public class BaseGeneratorTest {
             + "        private void method() {}\n" // Node 14
             + "    }"
             + "}\n"
-            + ""
+            + "\n"
             + "private class secondClass extends firstClass {}"; // Tree 2, Node 1
 
     /**

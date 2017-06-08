@@ -55,7 +55,7 @@ public class TreeListIteratorTest {
                 + "        private void method() {}\n" // Node 14
                 + "    }"
                 + "}\n"
-                + ""
+                + "\n"
                 + "private class secondClass extends firstClass {}"; // Tree 2, Node 1
         Generator generator = new BaseGenerator();
         Forest forest = generator.generate(code);

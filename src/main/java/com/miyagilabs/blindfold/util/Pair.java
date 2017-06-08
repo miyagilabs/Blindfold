@@ -16,45 +16,24 @@
  */
 package com.miyagilabs.blindfold.util;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 /**
  *
  * @author Görkem Mülayim
  */
-public class Forest implements Iterable<Tree> {
-    private final List<Tree> forest;
+public class Pair {
+    private final Tree tree;
+    private final Node node;
 
-    public Forest() {
-        forest = new ArrayList<>(1);
+    public Pair(Tree tree, Node node) {
+        this.tree = tree;
+        this.node = node;
     }
 
-    @Override
-    public Iterator<Tree> iterator() {
-        return forest.iterator();
+    public Tree getTree() {
+        return tree;
     }
 
-    public void addTree(Tree tree) {
-        forest.add(tree);
-        tree.setForest(this);
+    public Node getNode() {
+        return node;
     }
-
-    public Tree getTree(int index) {
-        return forest.get(index);
-    }
-
-    public int indexOfTree(Tree tree) {
-        return forest.indexOf(tree);
-    }
-
-    public int size() {
-        return forest.size();
-    }
-
-    public ListIterator<Tree> listIterator() {
-        return forest.listIterator();
-    }
-}
+};

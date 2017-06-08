@@ -25,11 +25,20 @@ import java.util.Objects;
  * @author Görkem Mülayim
  */
 public class Tree implements Iterable<Node> {
+    private Forest forest;
     private final Node root;
     private int size;
 
     public Tree(Node root) {
         this.root = root;
+    }
+
+    public void setForest(Forest forest) {
+        this.forest = forest;
+    }
+
+    public Forest getForest() {
+        return forest;
     }
 
     public Node getRoot() {

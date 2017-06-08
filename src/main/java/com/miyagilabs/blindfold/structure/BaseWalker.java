@@ -18,6 +18,7 @@ package com.miyagilabs.blindfold.structure;
 
 import com.miyagilabs.blindfold.util.Forest;
 import com.miyagilabs.blindfold.util.Node;
+import com.miyagilabs.blindfold.util.Pair;
 import com.miyagilabs.blindfold.util.Tree;
 
 /**
@@ -25,42 +26,86 @@ import com.miyagilabs.blindfold.util.Tree;
  * @author Görkem Mülayim
  */
 public class BaseWalker implements Walker {
+    private final String[] code;
     private final Forest forest;
     private Tree currentTree;
     private Node currentNode;
+    private int currentLine;
 
-    public BaseWalker(Forest forest) {
+    public BaseWalker(Forest forest, String code) {
+        this.code = code.split("\\n");
         this.forest = forest;
+        currentLine = 0;
     }
 
     @Override
     public String next() {
         if(currentNode == null) {
-            currentTree = nextTree(currentTree);
-            return currentTree.getRoot().getContext().getText();
+            currentTree = forest.getTree(0);
+            currentNode = currentTree.getRoot();
         }
-        currentNode = nextNode(currentNode);
-        return currentNode.getContext().getText();
+        else if(currentNode.getParent() == null) {
+            currentTree = nextTree(currentTree);
+            currentNode = currentTree.getRoot();
+        }
+        else {
+            Node parent = currentNode.getParent();
+            int index = parent.indexOfChild(currentNode);
+            if(index < parent.getChildCount()) {
+                currentNode = parent.getChild(index);
+            }
+            else {
+                currentNode = parent.getChild(0);
+            }
+        }
+        currentLine = currentNode.getContext().start.getLine() - 1;
+        return code[currentLine].trim();
     }
 
     @Override
     public String previous() {
         if(currentNode == null) {
-            currentTree = previousTree(currentTree);
-            return currentTree.getRoot().getContext().getText();
+            currentTree = forest.getTree(forest.size() - 1);
+            currentNode = currentTree.getRoot();
         }
-        currentNode = previousNode(currentNode);
-        return currentNode.getContext().getText();
+        else if(currentNode.getParent() == null) {
+            currentTree = previousTree(currentTree);
+            currentNode = currentTree.getRoot();
+        }
+        else {
+            Node parent = currentNode.getParent();
+            int index = parent.indexOfChild(currentNode);
+            if(index >= parent.getChildCount()) {
+                currentNode = parent.getChild(index);
+            }
+            else {
+                currentNode = parent.getChild(parent.getChildCount() - 1);
+            }
+        }
+        currentLine = currentNode.getContext().start.getLine() - 1;
+        return code[currentLine].trim();
     }
 
     @Override
     public String stepForward() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(currentLine + 1 < code.length) {
+            currentLine++;
+        }
+        Pair pair = findNearestPair(currentLine, forest);
+        currentTree = pair.getTree();
+        currentNode = pair.getNode();
+        return code[currentLine].trim();
     }
 
     @Override
     public String stepBackward() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(currentLine - 1 >= 0) {
+            currentLine--;
+        }
+        Pair pair = findNearestPair(currentLine, forest);
+        currentTree = pair.getTree();
+        currentNode = pair.getNode();
+        return code[currentLine].trim();
     }
 
     private Tree nextTree(Tree tree) {
@@ -85,21 +130,20 @@ public class BaseWalker implements Walker {
         return forest.getTree(forest.size() - 1);
     }
 
-    private Node nextNode(Node node) {
-        Node parent = node.getParent();
-        int index = parent.indexOfChild(node) + 1;
-        if(index < parent.getChildCount()) {
-            return parent.getChild(index);
+    private Pair findNearestPair(int line, Forest forest) {
+        int minDifference = Integer.MAX_VALUE;
+        Tree nearestTree = null;
+        Node nearestNode = null;
+        for(Tree tree : forest) {
+            for(Node node : tree) {
+                int difference = line - node.getContext().start.getLine() + 1;
+                if(difference < minDifference && difference >= 0) {
+                    minDifference = difference;
+                    nearestNode = node;
+                    nearestTree = tree;
+                }
+            }
         }
-        return parent.getChild(0);
-    }
-
-    private Node previousNode(Node node) {
-        Node parent = node.getParent();
-        int index = parent.indexOfChild(node) - 1;
-        if(index >= 0) {
-            return parent.getChild(index);
-        }
-        return parent.getChild(parent.getChildCount() - 1);
+        return new Pair(nearestTree, nearestNode);
     }
 }
