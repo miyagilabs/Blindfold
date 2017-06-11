@@ -18,7 +18,6 @@ package com.miyagilabs.blindfold.structure;
 
 import static org.junit.Assert.assertEquals;
 
-import com.miyagilabs.blindfold.util.Forest;
 import org.junit.Test;
 
 /**
@@ -55,9 +54,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testNext() {
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(CODE);
-        Walker walker = new BaseWalker(forest, CODE);
+        Walker walker = new BaseWalker(CODE);
         String expResult = "public class firstClass {";
         String result = walker.next();
         assertEquals("next method, of class BaseWalker's expected result is wrong.", expResult,
@@ -79,9 +76,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testPrevious() {
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(CODE);
-        Walker walker = new BaseWalker(forest, CODE);
+        Walker walker = new BaseWalker(CODE);
         String expResult = "private class secondClass extends firstClass {}";
         String result = walker.previous();
         assertEquals("previous method, of class BaseWalker's expected result is wrong.", expResult,
@@ -103,9 +98,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testNextAndPrevious() {
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(CODE);
-        Walker walker = new BaseWalker(forest, CODE);
+        Walker walker = new BaseWalker(CODE);
         String expResult = "public class firstClass {";
         walker.previous();
         String result = walker.next();
@@ -129,9 +122,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testStepForward() {
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(CODE);
-        Walker walker = new BaseWalker(forest, CODE);
+        Walker walker = new BaseWalker(CODE);
         String expResult = "private int x;";
         String result = walker.stepForward();
         assertEquals("stepForward method, of class BaseWalker's expected result is wrong.",
@@ -160,9 +151,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testStepBackward() {
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(CODE);
-        Walker walker = new BaseWalker(forest, CODE);
+        Walker walker = new BaseWalker(CODE);
         String expResult = "public class firstClass {";
         String result = walker.stepBackward();
         assertEquals("stepBackward method, of class BaseWalker's expected result is wrong.",
@@ -193,10 +182,8 @@ public class BaseWalkerTest {
      */
     @Test
     public void testStepForwardAndStepBackward() {
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(CODE);
         String expResult = "public class firstClass {";
-        Walker walker = new BaseWalker(forest, CODE);
+        Walker walker = new BaseWalker(CODE);
         walker.stepForward();
         walker.stepForward();
         walker.stepBackward();

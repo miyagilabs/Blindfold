@@ -16,46 +16,103 @@
  */
 package com.miyagilabs.blindfold;
 
-import com.miyagilabs.blindfold.structure.BaseGenerator;
-import com.miyagilabs.blindfold.structure.Generator;
-import com.miyagilabs.blindfold.util.Forest;
-import com.miyagilabs.blindfold.util.Node;
-import com.miyagilabs.blindfold.util.Tree;
-import java.util.ListIterator;
+import com.miyagilabs.blindfold.structure.BaseWalker;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
+ * FXML Controller class
  *
  * @author Görkem Mülayim
  */
-public class Demo {
+public class Demo extends Application implements Initializable, EventHandler<KeyEvent> {
+    @FXML
+    private Label label;
+    private Stage primaryStage;
+    private BaseWalker baseWalker;
+
+    public Demo() {
+        System.out.println("asdasd");
+    }
+
     public static void main(String[] args) {
-        String code = "public class Demo {" // Node 1
-                + "        public Demo() { }" // Node 2
-                + "        public void method() {" // Node 3
-                + "            if(1 == 1) { } " // Node 4
-                + "        }"
-                + "    }"
-                + "public interface Test { }"; // Node 5
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(code);
+        launch(args);
+    }
 
-        System.out.println("-Iterator-");
-        forest.forEach(tree -> {
-            tree.forEach(node -> {
-                System.out.println(node.getContext().getText());
-            });
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, this);
+        this.primaryStage = primaryStage;
+        primaryStage.setTitle("Demo");
+        ClassLoader classLoader = Demo.class.getClassLoader();
+        FXMLLoader fxmlLoader = new FXMLLoader(classLoader.getResource("fxml/Demo.fxml"));
+        fxmlLoader.setControllerFactory((Class<?> param) -> {
+            return this;
         });
+        Parent root = (Parent) fxmlLoader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
-        System.out.println();
+    @Override
+    public void handle(KeyEvent event) {
+        if(baseWalker == null) {
+            return;
+        }
+        switch(event.getCode()) {
+            case UP:
+                label.setText(baseWalker.stepBackward());
+                break;
+            case DOWN:
+                label.setText(baseWalker.stepForward());
+                break;
+            case LEFT:
+                label.setText(baseWalker.previous());
+                break;
+            case RIGHT:
+                label.setText(baseWalker.next());
+                break;
+        }
+    }
 
-        System.out.println("-List Iterator-");
-        ListIterator<Tree> forestListIterator = forest.listIterator();
-        while(forestListIterator.hasNext()) {
-            Tree tree = forestListIterator.next();
-            ListIterator<Node> treeListIterator = tree.listIterator();
-            while(treeListIterator.hasNext()) {
-                System.out.println(treeListIterator.next().getContext().getText());
+    @FXML
+    private void openFileOnAction(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(this.primaryStage);
+        if(file != null) {
+            label.setText("");
+            StringBuilder code = new StringBuilder(256);
+            try(BufferedReader bf = new BufferedReader(new FileReader(file))) {
+                String line;
+                while((line = bf.readLine()) != null) {
+                    code.append(line).append('\n');
+                }
             }
+            if(baseWalker == null) {
+                baseWalker = new BaseWalker(code.toString());
+            }
+            baseWalker.setCode(code.toString());
         }
     }
 }

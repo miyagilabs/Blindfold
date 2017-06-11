@@ -26,15 +26,22 @@ import com.miyagilabs.blindfold.util.Tree;
  * @author Görkem Mülayim
  */
 public class BaseWalker implements Walker {
-    private final String[] code;
-    private final Forest forest;
+    private String[] code;
+    private Forest forest;
     private Tree currentTree;
     private Node currentNode;
     private int currentLine;
 
-    public BaseWalker(Forest forest, String code) {
+    public BaseWalker(String code) {
         this.code = code.split("\\n");
-        this.forest = forest;
+        Generator generator = new BaseGenerator();
+        forest = generator.generate(code);
+    }
+
+    public void setCode(String code) {
+        this.code = code.split("\\n");
+        Generator generator = new BaseGenerator();
+        forest = generator.generate(code);
         currentLine = 0;
     }
 
