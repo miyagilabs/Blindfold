@@ -21,6 +21,7 @@ import com.miyagilabs.blindfold.antlr4.Java8Parser;
 import com.miyagilabs.blindfold.util.Forest;
 import com.miyagilabs.blindfold.util.Node;
 import com.miyagilabs.blindfold.util.Tree;
+import java.util.Stack;
 
 /**
  *
@@ -29,10 +30,11 @@ import com.miyagilabs.blindfold.util.Tree;
 public class Listener extends Java8BaseListener {
     private final Forest forest;
     private Node currentNode;
-    private Node previousNode;
+    private Stack<Node> parentStack;
 
     public Listener(Generator structureGenerator) {
         this.forest = structureGenerator.getForest();
+        parentStack = new Stack<>();
     }
 
     @Override
@@ -41,84 +43,85 @@ public class Listener extends Java8BaseListener {
             currentNode = new Node(ctx.normalClassDefinition());
             Tree tree = new Tree(currentNode);
             forest.addTree(tree);
+            parentStack.push(null);
         }
         else {
-            previousNode = currentNode;
+            parentStack.push(currentNode);
             currentNode = new Node(ctx.normalClassDefinition());
-            previousNode.addChild(currentNode);
+            parentStack.peek().addChild(currentNode);
         }
     }
 
     @Override
     public void exitNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
-        currentNode = null;
+        currentNode = parentStack.pop();
     }
 
     @Override
-    public void enterNormalInterfaceDeclaration(
-            Java8Parser.NormalInterfaceDeclarationContext ctx) {
+    public void enterNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
         if(currentNode == null) {
             currentNode = new Node(ctx.normalInterfaceDefinition());
             Tree tree = new Tree(currentNode);
             forest.addTree(tree);
+            parentStack.push(null);
         }
         else {
-            previousNode = currentNode;
+            parentStack.push(currentNode);
             currentNode = new Node(ctx.normalInterfaceDefinition());
-            previousNode.addChild(currentNode);
+            parentStack.peek().addChild(currentNode);
         }
     }
 
     @Override
     public void exitNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
-        currentNode = null;
+        currentNode = parentStack.pop();
     }
 
     @Override
     public void enterConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
-        previousNode = currentNode;
+        parentStack.push(currentNode);
         currentNode = new Node(ctx.constructorDefinition());
-        previousNode.addChild(currentNode);
+        parentStack.peek().addChild(currentNode);
     }
 
     @Override
     public void exitConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
-        currentNode = previousNode;
+        currentNode = parentStack.pop();
     }
 
     @Override
     public void enterMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
-        previousNode = currentNode;
+        parentStack.push(currentNode);
         currentNode = new Node(ctx.methodDefinition());
-        previousNode.addChild(currentNode);
+        parentStack.peek().addChild(currentNode);
     }
 
     @Override
     public void exitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
-        currentNode = previousNode;
+        currentNode = parentStack.pop();
     }
 
     @Override
     public void enterIfDefinition(Java8Parser.IfDefinitionContext ctx) {
-        previousNode = currentNode;
+        parentStack.push(currentNode);
         currentNode = new Node(ctx);
-        previousNode.addChild(currentNode);
+        parentStack.peek().addChild(currentNode);
     }
 
     @Override
     public void exitIfDefinition(Java8Parser.IfDefinitionContext ctx) {
-        currentNode = previousNode;
+        currentNode = parentStack.pop();
     }
 
     @Override
     public void enterElseDefinition(Java8Parser.ElseDefinitionContext ctx) {
-        previousNode = currentNode;
+        parentStack.push(currentNode);
         currentNode = new Node(ctx);
-        previousNode.addChild(currentNode);
+        parentStack.peek().addChild(currentNode);
     }
 
     @Override
     public void exitElseDefinition(Java8Parser.ElseDefinitionContext ctx) {
-        currentNode = previousNode;
+        currentNode = parentStack.pop();
     }
 }

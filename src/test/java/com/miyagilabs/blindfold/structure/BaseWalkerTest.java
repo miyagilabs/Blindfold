@@ -211,4 +211,18 @@ public class BaseWalkerTest {
         assertEquals("stepBackward method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
     }
+
+    /**
+     * Test of next and stepForward methods, of class BaseWalker at the same time.
+     */
+    @Test
+    public void testNextAndStepForward() {
+        String expResult = "public void method() {";
+        Walker walker = new BaseWalker(CODE);
+        walker.stepForward();
+        walker.stepForward();
+        String result = walker.next();
+        assertEquals("next method, of class BaseWalker's expected result is wrong.",
+                expResult, result);
+    }
 }

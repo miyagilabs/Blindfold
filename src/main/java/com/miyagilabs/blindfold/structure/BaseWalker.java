@@ -58,8 +58,8 @@ public class BaseWalker implements Walker {
         else {
             Node parent = currentNode.getParent();
             int index = parent.indexOfChild(currentNode);
-            if(index < parent.getChildCount()) {
-                currentNode = parent.getChild(index);
+            if(index + 1 < parent.getChildCount()) {
+                currentNode = parent.getChild(index + 1);
             }
             else {
                 currentNode = parent.getChild(0);
