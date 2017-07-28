@@ -17,9 +17,6 @@
 package com.miyagilabs.blindfold;
 
 import com.miyagilabs.blindfold.structure.BaseWalker;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +30,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -94,21 +90,6 @@ public class Demo extends Application implements Initializable, EventHandler<Key
 
     @FXML
     private void openFileOnAction(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(this.primaryStage);
-        if(file != null) {
-            label.setText("");
-            StringBuilder code = new StringBuilder(256);
-            try(BufferedReader bf = new BufferedReader(new FileReader(file))) {
-                String line;
-                while((line = bf.readLine()) != null) {
-                    code.append(line).append('\n');
-                }
-            }
-            if(baseWalker == null) {
-                baseWalker = new BaseWalker(code.toString());
-            }
-            baseWalker.setCode(code.toString());
-        }
+
     }
 }
