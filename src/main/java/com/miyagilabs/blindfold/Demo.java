@@ -47,10 +47,6 @@ public class Demo extends Application implements Initializable, EventHandler<Key
     private Stage primaryStage;
     private BaseWalker baseWalker;
 
-    public Demo() {
-        System.out.println("asdasd");
-    }
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -88,10 +84,10 @@ public class Demo extends Application implements Initializable, EventHandler<Key
                 label.setText(baseWalker.stepForward());
                 break;
             case LEFT:
-                label.setText(baseWalker.previous());
+                label.setText(baseWalker.stepOut());
                 break;
             case RIGHT:
-                label.setText(baseWalker.next());
+                label.setText(baseWalker.stepIn());
                 break;
         }
     }
