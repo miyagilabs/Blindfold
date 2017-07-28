@@ -40,6 +40,11 @@ public class BaseWalker implements Walker {
     }
 
     @Override
+    public String viewCurrent() {
+        return code[currentNode.getContext().start.getLine() - 1].trim();
+    }
+
+    @Override
     public String stepIn() {
         if(currentNode.getChildCount() == 0) {
             return code[currentNode.getContext().start.getLine() - 1].trim();

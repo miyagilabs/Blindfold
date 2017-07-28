@@ -21,6 +21,8 @@ package com.miyagilabs.blindfold.structure;
  * @author Görkem Mülayim
  */
 public interface Walker {
+    String viewCurrent();
+
     String stepIn();
 
     String stepOut();

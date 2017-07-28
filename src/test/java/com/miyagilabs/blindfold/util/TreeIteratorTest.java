@@ -21,6 +21,11 @@ import static org.junit.Assert.fail;
 
 import com.miyagilabs.blindfold.structure.BaseGenerator;
 import com.miyagilabs.blindfold.structure.Generator;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import org.junit.Test;
@@ -30,33 +35,15 @@ import org.junit.Test;
  * @author Görkem Mülayim
  */
 public class TreeIteratorTest {
+    private static final String SAMPLE_CLASS_PATH = "sample/SampleClass.java";
     private final Tree tree1;
     private final Tree tree2;
 
-    public TreeIteratorTest() {
-        String code
-                = "public class firstClass {\n" // Tree 1, Node 1
-                + "    private int x;\n"
-                + "    public Test() {\n" // Node 2
-                + "        x = 5;\n"
-                + "        if(0 == 0) {}\n" // Node 3
-                + "        else {}\n" // Node 4
-                + "        if(1 == 1) {}\n" // Node 5
-                + "    }\n"
-                + "    public void method() {\n" // Node 6
-                + "        if(2 == 2) {\n" // Node 7
-                + "            if(3 == 3) {}\n" // Node 8
-                + "            else {}\n" // Node 9
-                + "        }\n"
-                + "        else if(4 == 4) {}\n" // Node 10, 11
-                + "        else {}\n" // Node 12
-                + "    }\n"
-                + "    private class innerClass {\n" // Node 13
-                + "        private void method() {}\n" // Node 14
-                + "    }"
-                + "}\n"
-                + "\n"
-                + "private class secondClass extends firstClass {}"; // Tree 2, Node 1
+    public TreeIteratorTest() throws IOException {
+        ClassLoader classLoader = TreeIteratorTest.class.getClassLoader();
+        File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
+        byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+        String code = new String(encoded, Charset.defaultCharset());
         Generator generator = new BaseGenerator();
         Forest forest = generator.generate(code);
         tree1 = forest.getTree(0);
@@ -70,7 +57,7 @@ public class TreeIteratorTest {
     public void testHasNext() {
         Iterator<Node> treeIterator1 = new TreeIterator(tree1);
         boolean expResult = false;
-        for(int i = 0; i < 14; i++) {
+        for(int i = 0; i < 15; i++) {
             treeIterator1.next();
         }
         boolean result = treeIterator1.hasNext();
@@ -90,9 +77,9 @@ public class TreeIteratorTest {
     @Test
     public void testNext() {
         Iterator<Node> treeIterator1 = new TreeIterator(tree1);
-        String expResult = "privatevoidmethod()";
+        String expResult = "privatestaticclassSampleStaticInnerClassextendsSampleClass";
         String result = null;
-        for(int i = 0; i < 14; i++) {
+        for(int i = 0; i < 15; i++) {
             result = treeIterator1.next().getContext().getText();
         }
         assertEquals("next method, of class TreeIterator's expected result is worng.", expResult,
