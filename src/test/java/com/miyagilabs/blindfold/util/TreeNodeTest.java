@@ -32,26 +32,28 @@ import org.junit.Test;
  *
  * @author Görkem Mülayim
  */
-public class NodeTest {
+public class TreeNodeTest {
     private static final String SAMPLE_CLASS_PATH = "sample/SampleClass.java";
 
     /**
-     * Test of equals method, of class Node.
+     * Test of equals method, of class TreeNode.
      *
      * @throws java.io.IOException
      */
     @Test
     public void testEquals() throws IOException {
         Object object = null;
-        Node instance = new Node(new ParserRuleContext());
+        TreeNode instance = new TreeNode(new ParserRuleContext());
         boolean expResult = false;
         boolean result = instance.equals(object);
-        assertEquals("equals method, of class Node's expected result is wrong.", expResult, result);
+        assertEquals("equals method, of class TreeNode's expected result is wrong.", expResult,
+                result);
 
         object = new Object();
         expResult = false;
         result = instance.equals(object);
-        assertEquals("equals method, of class Node's expected result is wrong.", expResult, result);
+        assertEquals("equals method, of class TreeNode's expected result is wrong.", expResult,
+                result);
 
         ClassLoader classLoader = TreeListIteratorTest.class.getClassLoader();
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
@@ -66,6 +68,7 @@ public class NodeTest {
         object = forest1.getTree(0).getRoot();
         instance = forest2.getTree(0).getRoot();
         result = instance.equals(object);
-        assertEquals("equals method, of class Node's expected result is wrong.", expResult, result);
+        assertEquals("equals method, of class TreeNode's expected result is wrong.", expResult,
+                result);
     }
 }

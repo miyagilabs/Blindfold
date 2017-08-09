@@ -43,7 +43,7 @@ public class TreeTest {
     @Test
     public void testEquals() throws IOException {
         Object object = null;
-        Tree instance = new Tree(new Node(new ParserRuleContext()));
+        Tree instance = new Tree(new TreeNode(new ParserRuleContext()));
         boolean expResult = false;
         boolean result = instance.equals(object);
         assertEquals("equals method, of class Tree's expected result is wrong.", expResult, result);

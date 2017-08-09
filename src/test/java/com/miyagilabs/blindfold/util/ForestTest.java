@@ -64,7 +64,7 @@ public class ForestTest {
                 result);
 
         Forest obj = new Forest();
-        obj.addTree(new Tree(new Node(new ParserRuleContext())));
+        obj.addTree(new Tree(new TreeNode(new ParserRuleContext())));
         instance = new Forest();
         expResult = false;
         result = instance.equals(obj);

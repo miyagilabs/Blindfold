@@ -20,45 +20,45 @@ package sample;
  *
  * @author Görkem Mülayim
  */
-public class SampleClass { // Tree 1, node 1
+public class SampleClass { // Tree 1, tree node 1
     private int instanceVariable;
 
-    private SampleClass() { // Tree 1, node 2
+    private SampleClass() { // Tree 1, tree node 2
         instanceVariable = 0;
-        if(0 == 0) { // Tree 1, node 3
+        if(0 == 0) { // Tree 1, tree node 3
         }
-        else { // Tree 1, node 4
+        else { // Tree 1, tree node 4
         }
-        if(1 == 1) { // Tree 1, node 5
+        if(1 == 1) { // Tree 1, tree node 5
         }
     }
 
-    private int getInstanceVariable() { // Tree 1, node 6
+    private int getInstanceVariable() { // Tree 1, tree node 6
         method();
         return instanceVariable;
     }
 
-    private void setInstanceVariable(int number) { // Tree 1, node 7
+    private void setInstanceVariable(int number) { // Tree 1, tree node 7
         instanceVariable = number;
     }
 
-    private void method() { // Tree 1, node 8
+    private void method() { // Tree 1, tree node 8
         setInstanceVariable(getInstanceVariable());
-        if(0 == 0) { // Tree 1, node 9
-            if(1 == 1) { // Tree 1, node 10
+        if(0 == 0) { // Tree 1, tree node 9
+            if(1 == 1) { // Tree 1, tree node 10
             }
-            else { // Tree 1, node 11
+            else { // Tree 1, tree node 11
             }
         }
-        else if(4 == 4) { // Tree 1, node 12 and node 13
+        else if(4 == 4) { // Tree 1, tree node 12 and tree node 13
         }
-        else { // Tree 1, node 14
+        else { // Tree 1, tree node 14
         }
     }
 
-    private static class SampleStaticInnerClass extends SampleClass { // Tree 1, node 15
+    private static class SampleStaticInnerClass extends SampleClass { // Tree 1, tree node 15
     }
 }
 
-class SampleSecondClass { // Tree 2, node 1
+class SampleSecondClass { // Tree 2, tree node 1
 }

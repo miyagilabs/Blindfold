@@ -55,7 +55,7 @@ public class TreeIteratorTest {
      */
     @Test
     public void testHasNext() {
-        Iterator<Node> treeIterator1 = new TreeIterator(tree1);
+        Iterator<TreeNode> treeIterator1 = new TreeIterator(tree1);
         boolean expResult = false;
         for(int i = 0; i < 15; i++) {
             treeIterator1.next();
@@ -64,7 +64,7 @@ public class TreeIteratorTest {
         assertEquals("hasNext method, of class TreeIterator's expected result is wrong.", expResult,
                 result);
 
-        Iterator<Node> treeIterator2 = new TreeIterator(tree2);
+        Iterator<TreeNode> treeIterator2 = new TreeIterator(tree2);
         expResult = true;
         result = treeIterator2.hasNext();
         assertEquals("hasNext method, of class TreeIterator's expected result is wrong.", expResult,
@@ -76,7 +76,7 @@ public class TreeIteratorTest {
      */
     @Test
     public void testNext() {
-        Iterator<Node> treeIterator1 = new TreeIterator(tree1);
+        Iterator<TreeNode> treeIterator1 = new TreeIterator(tree1);
         String expResult = "privatestaticclassSampleStaticInnerClassextendsSampleClass";
         String result = null;
         for(int i = 0; i < 15; i++) {
@@ -91,7 +91,7 @@ public class TreeIteratorTest {
      */
     @Test(expected = NoSuchElementException.class)
     public void testNextNoSuchElementException() {
-        Iterator<Node> treeIterator2 = new TreeIterator(tree2);
+        Iterator<TreeNode> treeIterator2 = new TreeIterator(tree2);
         treeIterator2.next();
         treeIterator2.next();
         fail("next method, of class TreeIterator should throw NoSuchElementException.");

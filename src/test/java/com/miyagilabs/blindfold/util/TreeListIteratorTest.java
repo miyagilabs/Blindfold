@@ -55,7 +55,7 @@ public class TreeListIteratorTest {
      */
     @Test
     public void testHasNext() {
-        ListIterator<Node> treeListIterator1 = new TreeListIterator(tree1);
+        ListIterator<TreeNode> treeListIterator1 = new TreeListIterator(tree1);
         boolean expResult = false;
         for(int i = 0; i < 15; i++) {
             treeListIterator1.next();
@@ -63,7 +63,7 @@ public class TreeListIteratorTest {
         boolean result = treeListIterator1.hasNext();
         assertEquals(expResult, result);
 
-        ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
+        ListIterator<TreeNode> treeListIterator2 = new TreeListIterator(tree2);
         expResult = true;
         result = treeListIterator2.hasNext();
         assertEquals("hasNext method, of class TreeListIterator's expected result is wrong.",
@@ -75,7 +75,7 @@ public class TreeListIteratorTest {
      */
     @Test
     public void testNext() {
-        ListIterator<Node> treeListIterator1 = new TreeListIterator(tree1);
+        ListIterator<TreeNode> treeListIterator1 = new TreeListIterator(tree1);
         String expResult = "privatestaticclassSampleStaticInnerClassextendsSampleClass";
         String result = null;
         for(int i = 0; i < 15; i++) {
@@ -90,7 +90,7 @@ public class TreeListIteratorTest {
      */
     @Test(expected = NoSuchElementException.class)
     public void testNextNoSuchElementException() {
-        ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
+        ListIterator<TreeNode> treeListIterator2 = new TreeListIterator(tree2);
         treeListIterator2.next();
         treeListIterator2.next();
         fail("next method, of class TreeListIterator should throw NoSuchElementException.");
@@ -101,7 +101,7 @@ public class TreeListIteratorTest {
      */
     @Test
     public void testHasPrevious() {
-        ListIterator<Node> treeListIterator1 = new TreeListIterator(tree1);
+        ListIterator<TreeNode> treeListIterator1 = new TreeListIterator(tree1);
         boolean expResult = true;
         for(int i = 0; i < 14; i++) {
             treeListIterator1.next();
@@ -110,7 +110,7 @@ public class TreeListIteratorTest {
         assertEquals("hasPrevious method, of class TreeListIterator's expected result is wrong.",
                 expResult, result);
 
-        ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
+        ListIterator<TreeNode> treeListIterator2 = new TreeListIterator(tree2);
         expResult = false;
         result = treeListIterator2.hasPrevious();
         assertEquals("hasPrevious method, of class TreeListIterator's expected result is wrong.",
@@ -122,7 +122,7 @@ public class TreeListIteratorTest {
      */
     @Test
     public void testPrevious() {
-        ListIterator<Node> treeListIterator1 = new TreeListIterator(tree1);
+        ListIterator<TreeNode> treeListIterator1 = new TreeListIterator(tree1);
         String expResult = "publicclassSampleClass";
         String result = null;
         for(int i = 0; i < 15; i++) {
@@ -140,7 +140,7 @@ public class TreeListIteratorTest {
      */
     @Test(expected = NoSuchElementException.class)
     public void testPreviousNoSuchElementException() {
-        ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
+        ListIterator<TreeNode> treeListIterator2 = new TreeListIterator(tree2);
         treeListIterator2.previous();
         fail("previous method, of class TreeListIterator should throw NoSuchElementException.");
     }
@@ -150,7 +150,7 @@ public class TreeListIteratorTest {
      */
     @Test
     public void testNextIndex() {
-        ListIterator<Node> treeListIterator1 = new TreeListIterator(tree1);
+        ListIterator<TreeNode> treeListIterator1 = new TreeListIterator(tree1);
         int expResult = 0;
         int result = treeListIterator1.nextIndex();
         assertEquals("nextIndex method, of class TreeListIterator's expected result is worng.",
@@ -170,7 +170,7 @@ public class TreeListIteratorTest {
      */
     @Test
     public void testPreviousIndex() {
-        ListIterator<Node> treeListIterator1 = new TreeListIterator(tree1);
+        ListIterator<TreeNode> treeListIterator1 = new TreeListIterator(tree1);
         int expResult = -1;
         int result = treeListIterator1.previousIndex();
         assertEquals("previousIndex method, of class TreeListIterator's expected result is worng.",
@@ -190,7 +190,7 @@ public class TreeListIteratorTest {
      */
     @Test(expected = UnsupportedOperationException.class)
     public void testRemove() {
-        ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
+        ListIterator<TreeNode> treeListIterator2 = new TreeListIterator(tree2);
         treeListIterator2.next();
         treeListIterator2.remove();
     }
@@ -200,7 +200,7 @@ public class TreeListIteratorTest {
      */
     @Test(expected = UnsupportedOperationException.class)
     public void testSet() {
-        ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
+        ListIterator<TreeNode> treeListIterator2 = new TreeListIterator(tree2);
         treeListIterator2.next();
         treeListIterator2.set(null);
     }
@@ -210,7 +210,7 @@ public class TreeListIteratorTest {
      */
     @Test(expected = UnsupportedOperationException.class)
     public void testAdd() {
-        ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
+        ListIterator<TreeNode> treeListIterator2 = new TreeListIterator(tree2);
         treeListIterator2.next();
         treeListIterator2.add(null);
     }

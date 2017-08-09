@@ -24,14 +24,14 @@ import java.util.ListIterator;
  *
  * @author Görkem Mülayim
  */
-public class TreeListIterator implements ListIterator<Node> {
-    private final ListIterator<Node> listIterator;
-    private Node cursor;
+public class TreeListIterator implements ListIterator<TreeNode> {
+    private final ListIterator<TreeNode> listIterator;
+    private TreeNode cursor;
 
     public TreeListIterator(Tree tree) {
-        List<Node> list = new ArrayList<>(tree.size());
-        for(Node node : tree) {
-            list.add(node);
+        List<TreeNode> list = new ArrayList<>(tree.size());
+        for(TreeNode treeNode : tree) {
+            list.add(treeNode);
         }
         listIterator = list.listIterator();
     }
@@ -42,7 +42,7 @@ public class TreeListIterator implements ListIterator<Node> {
     }
 
     @Override
-    public Node next() {
+    public TreeNode next() {
         cursor = listIterator.next();
         return cursor;
     }
@@ -53,7 +53,7 @@ public class TreeListIterator implements ListIterator<Node> {
     }
 
     @Override
-    public Node previous() {
+    public TreeNode previous() {
         cursor = listIterator.previous();
         return cursor;
     }
@@ -74,12 +74,12 @@ public class TreeListIterator implements ListIterator<Node> {
     }
 
     @Override
-    public void set(Node e) {
+    public void set(TreeNode e) {
         throw new UnsupportedOperationException("Read-only.");
     }
 
     @Override
-    public void add(Node e) {
+    public void add(TreeNode e) {
         throw new UnsupportedOperationException("Read-only.");
     }
 }

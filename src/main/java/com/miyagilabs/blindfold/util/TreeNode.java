@@ -26,33 +26,33 @@ import org.antlr.v4.runtime.ParserRuleContext;
  *
  * @author Görkem Mülayim
  */
-public class Node {
-    private Node parent;
-    private final List<Node> children;
+public class TreeNode {
+    private TreeNode parent;
+    private final List<TreeNode> children;
     private final ParserRuleContext context;
 
-    public Node(ParserRuleContext context) {
+    public TreeNode(ParserRuleContext context) {
         this.children = new ArrayList<>(8);
         this.context = context;
     }
 
-    public void setParent(Node parent) {
+    public void setParent(TreeNode parent) {
         this.parent = parent;
     }
 
-    public Node getParent() {
+    public TreeNode getParent() {
         return parent;
     }
 
-    public Node getChild(int index) {
+    public TreeNode getChild(int index) {
         return children.get(index);
     }
 
-    public List<Node> getChildren() {
+    public List<TreeNode> getChildren() {
         return Collections.unmodifiableList(children);
     }
 
-    public void addChild(Node child) {
+    public void addChild(TreeNode child) {
         child.setParent(this);
         children.add(child);
     }
@@ -76,12 +76,13 @@ public class Node {
         if(!this.getClass().equals(object.getClass())) {
             return false;
         }
-        Node node = (Node) object;
-        if(this.hashCode() != node.hashCode()) {
+        TreeNode treeNode = (TreeNode) object;
+        if(this.hashCode() != treeNode.hashCode()) {
             return false;
         }
-        return this.children.equals(node.getChildren()) && this.context.getText().equals(node
-                .getContext().getText());
+        return this.children.equals(treeNode.getChildren()) && this.context.getText().equals(
+                treeNode
+                        .getContext().getText());
     }
 
     @Override

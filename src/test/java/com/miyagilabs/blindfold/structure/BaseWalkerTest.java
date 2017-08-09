@@ -57,7 +57,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testViewCurrent() {
-        String expResult = "public class SampleClass { // Tree 1, node 1";
+        String expResult = "public class SampleClass { // Tree 1, tree node 1";
         String result = walker.viewCurrent();
         assertEquals("viewCurrent method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
@@ -68,17 +68,17 @@ public class BaseWalkerTest {
      */
     @Test
     public void testStepIn() {
-        String expResult = "private SampleClass() { // Tree 1, node 2";
+        String expResult = "private SampleClass() { // Tree 1, tree node 2";
         String result = walker.stepIn();
         assertEquals("stepIn method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
 
-        expResult = "if(0 == 0) { // Tree 1, node 3";
+        expResult = "if(0 == 0) { // Tree 1, tree node 3";
         result = walker.stepIn();
         assertEquals("stepIn method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
 
-        expResult = "if(0 == 0) { // Tree 1, node 3";
+        expResult = "if(0 == 0) { // Tree 1, tree node 3";
         result = walker.stepIn();
         assertEquals("stepIn method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
@@ -89,7 +89,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testStepOut() {
-        String expResult = "public class SampleClass { // Tree 1, node 1";
+        String expResult = "public class SampleClass { // Tree 1, tree node 1";
         String result = walker.stepOut();
         assertEquals("stepOut method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
@@ -100,7 +100,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testStepForward() {
-        String expResult = "class SampleSecondClass { // Tree 2, node 1";
+        String expResult = "class SampleSecondClass { // Tree 2, tree node 1";
         String result = walker.stepForward();
         assertEquals("stepForward method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
@@ -111,7 +111,7 @@ public class BaseWalkerTest {
      */
     @Test
     public void testStepBackward() {
-        String expResult = "public class SampleClass { // Tree 1, node 1";
+        String expResult = "public class SampleClass { // Tree 1, tree node 1";
         String result = walker.stepBackward();
         assertEquals("stepBackward method, of class BaseWalker's expected result is wrong.",
                 expResult, result);
@@ -122,19 +122,19 @@ public class BaseWalkerTest {
      */
     @Test
     public void testRealWorldScenario() {
-        String expResult = "private SampleClass() { // Tree 1, node 2";
-        // Move to tree 1, node 3.
+        String expResult = "private SampleClass() { // Tree 1, tree node 2";
+        // Move to tree 1, tree node 3.
         walker.stepIn();
         walker.stepIn();
         walker.stepIn();
-        // Move back to tree 1, node 2.
+        // Move back to tree 1, tree node 2.
         String result = walker.stepOut();
         assertEquals("Real world scenario result has faild for BaseWalker.",
                 expResult, result);
 
         expResult = "private static class SampleStaticInnerClass "
-                + "extends SampleClass { // Tree 1, node 15";
-        // Move from tree 1, node 2 to tree 1, node 15.
+                + "extends SampleClass { // Tree 1, tree node 15";
+        // Move from tree 1, tree node 2 to tree 1, tree node 15.
         walker.stepForward();
         walker.stepForward();
         walker.stepForward();

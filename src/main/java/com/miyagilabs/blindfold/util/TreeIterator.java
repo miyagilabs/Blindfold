@@ -24,8 +24,8 @@ import java.util.Stack;
  *
  * @author Görkem Mülayim
  */
-public class TreeIterator implements Iterator<Node> {
-    private final Stack<Node> stack;
+public class TreeIterator implements Iterator<TreeNode> {
+    private final Stack<TreeNode> stack;
 
     public TreeIterator(Tree tree) {
         this.stack = new Stack<>();
@@ -38,14 +38,14 @@ public class TreeIterator implements Iterator<Node> {
     }
 
     @Override
-    public Node next() {
+    public TreeNode next() {
         if(!hasNext()) {
             throw new NoSuchElementException();
         }
-        Node node = stack.pop();
-        for(int i = node.getChildCount() - 1; i >= 0; i--) {
-            stack.push(node.getChild(i));
+        TreeNode treeNode = stack.pop();
+        for(int i = treeNode.getChildCount() - 1; i >= 0; i--) {
+            stack.push(treeNode.getChild(i));
         }
-        return node;
+        return treeNode;
     }
 }

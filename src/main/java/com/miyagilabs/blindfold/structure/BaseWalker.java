@@ -17,7 +17,7 @@
 package com.miyagilabs.blindfold.structure;
 
 import com.miyagilabs.blindfold.util.Forest;
-import com.miyagilabs.blindfold.util.Node;
+import com.miyagilabs.blindfold.util.TreeNode;
 import java.util.LinkedList;
 
 /**
@@ -26,8 +26,8 @@ import java.util.LinkedList;
  */
 public class BaseWalker implements Walker {
     private final String[] code;
-    private final LinkedList<Node> linkedList;
-    private Node currentNode;
+    private final LinkedList<TreeNode> linkedList;
+    private TreeNode currentTreeNode;
 
     public BaseWalker(String code) {
         this.code = code.split("\\n");
@@ -37,55 +37,55 @@ public class BaseWalker implements Walker {
         for(int i = 0; i < forest.size(); i++) {
             linkedList.addLast(forest.getTree(i).getRoot());
         }
-        currentNode = forest.getTree(0).getRoot();
+        currentTreeNode = forest.getTree(0).getRoot();
 
     }
 
     @Override
     public String viewCurrent() {
-        return code[currentNode.getContext().start.getLine() - 1].trim();
+        return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
     @Override
     public String stepIn() {
-        if(currentNode.getChildCount() == 0) {
-            return code[currentNode.getContext().start.getLine() - 1].trim();
+        if(currentTreeNode.getChildCount() == 0) {
+            return code[currentTreeNode.getContext().start.getLine() - 1].trim();
         }
-        int index = linkedList.indexOf(currentNode);
-        for(int i = 0; i < currentNode.getChildCount(); i++) {
-            linkedList.add(index + i + 1, currentNode.getChild(i));
+        int index = linkedList.indexOf(currentTreeNode);
+        for(int i = 0; i < currentTreeNode.getChildCount(); i++) {
+            linkedList.add(index + i + 1, currentTreeNode.getChild(i));
         }
-        currentNode = currentNode.getChild(0);
-        return code[currentNode.getContext().start.getLine() - 1].trim();
+        currentTreeNode = currentTreeNode.getChild(0);
+        return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
     @Override
     public String stepOut() {
-        if(currentNode.getParent() == null) {
-            return code[currentNode.getContext().start.getLine() - 1].trim();
+        if(currentTreeNode.getParent() == null) {
+            return code[currentTreeNode.getContext().start.getLine() - 1].trim();
         }
-        currentNode = currentNode.getParent();
-        for(int i = 0; i < currentNode.getChildCount(); i++) {
-            linkedList.remove(currentNode.getChild(i));
+        currentTreeNode = currentTreeNode.getParent();
+        for(int i = 0; i < currentTreeNode.getChildCount(); i++) {
+            linkedList.remove(currentTreeNode.getChild(i));
         }
-        return code[currentNode.getContext().start.getLine() - 1].trim();
+        return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
     @Override
     public String stepForward() {
-        int index = linkedList.indexOf(currentNode);
+        int index = linkedList.indexOf(currentTreeNode);
         if(index + 1 < linkedList.size()) {
-            currentNode = linkedList.get(index + 1);
+            currentTreeNode = linkedList.get(index + 1);
         }
-        return code[currentNode.getContext().start.getLine() - 1].trim();
+        return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
     @Override
     public String stepBackward() {
-        int index = linkedList.indexOf(currentNode);
+        int index = linkedList.indexOf(currentTreeNode);
         if(index - 1 >= 0) {
-            currentNode = linkedList.get(index - 1);
+            currentTreeNode = linkedList.get(index - 1);
         }
-        return code[currentNode.getContext().start.getLine() - 1].trim();
+        return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 }

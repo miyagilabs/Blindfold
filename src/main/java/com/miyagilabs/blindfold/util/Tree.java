@@ -24,29 +24,29 @@ import java.util.Objects;
  *
  * @author Görkem Mülayim
  */
-public class Tree implements Iterable<Node> {
-    private final Node root;
+public class Tree implements Iterable<TreeNode> {
+    private final TreeNode root;
 
-    public Tree(Node root) {
+    public Tree(TreeNode root) {
         this.root = root;
     }
 
-    public Node getRoot() {
+    public TreeNode getRoot() {
         return root;
     }
 
     @Override
-    public Iterator<Node> iterator() {
+    public Iterator<TreeNode> iterator() {
         return new TreeIterator(this);
     }
 
-    public ListIterator<Node> listIterator() {
+    public ListIterator<TreeNode> listIterator() {
         return new TreeListIterator(this);
     }
 
     public int size() {
         int size = 0;
-        Iterator<Node> treeIterator = new TreeIterator(this);
+        Iterator<TreeNode> treeIterator = new TreeIterator(this);
         while(treeIterator.hasNext()) {
             size++;
             treeIterator.next();
