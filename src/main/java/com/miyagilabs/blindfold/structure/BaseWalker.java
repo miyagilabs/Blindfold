@@ -33,9 +33,11 @@ public class BaseWalker implements Walker {
         this.code = code.split("\\n");
         Generator generator = new BaseGenerator();
         Forest forest = generator.generate(code);
-        currentNode = forest.getTree(0).getRoot();
         linkedList = new LinkedList<>();
-        linkedList.add(currentNode);
+        for(int i = 0; i < forest.size(); i++) {
+            linkedList.addLast(forest.getTree(i).getRoot());
+        }
+        currentNode = forest.getTree(0).getRoot();
 
     }
 
@@ -49,8 +51,9 @@ public class BaseWalker implements Walker {
         if(currentNode.getChildCount() == 0) {
             return code[currentNode.getContext().start.getLine() - 1].trim();
         }
+        int index = linkedList.indexOf(currentNode);
         for(int i = 0; i < currentNode.getChildCount(); i++) {
-            linkedList.add(currentNode.getChild(0));
+            linkedList.add(index + i + 1, currentNode.getChild(i));
         }
         currentNode = currentNode.getChild(0);
         return code[currentNode.getContext().start.getLine() - 1].trim();

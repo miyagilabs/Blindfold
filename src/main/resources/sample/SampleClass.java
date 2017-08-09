@@ -20,45 +20,45 @@ package sample;
  *
  * @author Görkem Mülayim
  */
-public class SampleClass { // Tree 1, Node 1
+public class SampleClass { // Tree 1, node 1
     private int instanceVariable;
 
-    private SampleClass() { // Node 2
+    private SampleClass() { // Tree 1, node 2
         instanceVariable = 0;
-        if(0 == 0) { // Node 3
+        if(0 == 0) { // Tree 1, node 3
         }
-        else { // Node 4
+        else { // Tree 1, node 4
         }
-        if(1 == 1) { // Node 5
+        if(1 == 1) { // Tree 1, node 5
         }
     }
 
-    private int getInstanceVariable() { // Node 6
+    private int getInstanceVariable() { // Tree 1, node 6
         method();
         return instanceVariable;
     }
 
-    private void setInstanceVariable(int number) { // Node 7
+    private void setInstanceVariable(int number) { // Tree 1, node 7
         instanceVariable = number;
     }
 
-    private void method() { // Node 8
+    private void method() { // Tree 1, node 8
         setInstanceVariable(getInstanceVariable());
-        if(0 == 0) { // Node 9
-            if(1 == 1) { // Node 10
+        if(0 == 0) { // Tree 1, node 9
+            if(1 == 1) { // Tree 1, node 10
             }
-            else { // Node 11
+            else { // Tree 1, node 11
             }
         }
-        else if(4 == 4) { // Node 12, 13
+        else if(4 == 4) { // Tree 1, node 12 and node 13
         }
-        else { // Node 14
+        else { // Tree 1, node 14
         }
     }
 
-    private static class SampleStaticInnerClass extends SampleClass { // Node 15
+    private static class SampleStaticInnerClass extends SampleClass { // Tree 1, node 15
     }
 }
 
-class SampleSecondClass { // Tree 2, Node 1
+class SampleSecondClass { // Tree 2, node 1
 }
