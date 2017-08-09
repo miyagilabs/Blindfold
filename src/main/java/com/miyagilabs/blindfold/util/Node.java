@@ -52,15 +52,6 @@ public class Node {
         return Collections.unmodifiableList(children);
     }
 
-    public int indexOfChild(Node node) {
-        for(int i = 0; i < children.size(); i++) {
-            if(children.get(i).equals(node)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public void addChild(Node child) {
         child.setParent(this);
         children.add(child);
@@ -89,14 +80,15 @@ public class Node {
         if(this.hashCode() != node.hashCode()) {
             return false;
         }
-        return this.children.equals(node.getChildren()) && this.context.equals(node.getContext());
+        return this.children.equals(node.getChildren()) && this.context.getText().equals(node
+                .getContext().getText());
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 79 * hash + Objects.hashCode(this.children);
-        hash = 79 * hash + Objects.hashCode(this.context);
+        hash = 79 * hash + Objects.hashCode(this.context.getText());
         return hash;
     }
 }

@@ -43,7 +43,7 @@ public class BaseGenerator implements Generator {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Java8Parser parser = new Java8Parser(tokens);
         Java8Parser.CompilationUnitContext ast = parser.compilationUnit();
-        Listener listener = new Listener(this);
+        Listener listener = new Listener(forest);
         ParseTreeWalker.DEFAULT.walk(listener, ast);
         return forest;
     }

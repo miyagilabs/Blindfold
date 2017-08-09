@@ -25,20 +25,10 @@ import java.util.Objects;
  * @author Görkem Mülayim
  */
 public class Tree implements Iterable<Node> {
-    private Forest forest;
     private final Node root;
-    private int size;
 
     public Tree(Node root) {
         this.root = root;
-    }
-
-    public void setForest(Forest forest) {
-        this.forest = forest;
-    }
-
-    public Forest getForest() {
-        return forest;
     }
 
     public Node getRoot() {
@@ -55,7 +45,7 @@ public class Tree implements Iterable<Node> {
     }
 
     public int size() {
-        size = 0;
+        int size = 0;
         Iterator<Node> treeIterator = new TreeIterator(this);
         while(treeIterator.hasNext()) {
             size++;
@@ -79,14 +69,13 @@ public class Tree implements Iterable<Node> {
         if(this.hashCode() != tree.hashCode()) {
             return false;
         }
-        return this.root.equals(tree.getRoot()) && this.size == tree.size();
+        return this.root.equals(tree.getRoot());
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.root);
-        hash = 23 * hash + this.size;
+        hash = 89 * hash + Objects.hashCode(this.root);
         return hash;
     }
 }

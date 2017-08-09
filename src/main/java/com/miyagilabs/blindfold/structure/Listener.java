@@ -32,8 +32,8 @@ public class Listener extends Java8BaseListener {
     private Node currentNode;
     private Stack<Node> parentStack;
 
-    public Listener(Generator structureGenerator) {
-        this.forest = structureGenerator.getForest();
+    public Listener(Forest forest) {
+        this.forest = forest;
         parentStack = new Stack<>();
     }
 

@@ -17,44 +17,74 @@
 package com.miyagilabs.blindfold.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 /**
  *
  * @author Görkem Mülayim
  */
 public class Forest implements Iterable<Tree> {
-    private final List<Tree> forest;
+    private final List<Tree> trees;
 
     public Forest() {
-        forest = new ArrayList<>(1);
+        trees = new ArrayList<>(1);
     }
 
     @Override
     public Iterator<Tree> iterator() {
-        return forest.iterator();
+        return trees.iterator();
     }
 
     public void addTree(Tree tree) {
-        forest.add(tree);
-        tree.setForest(this);
+        trees.add(tree);
     }
 
     public Tree getTree(int index) {
-        return forest.get(index);
+        return trees.get(index);
+    }
+
+    public List<Tree> getTrees() {
+        return Collections.unmodifiableList(trees);
     }
 
     public int indexOfTree(Tree tree) {
-        return forest.indexOf(tree);
+        return trees.indexOf(tree);
     }
 
     public int size() {
-        return forest.size();
+        return trees.size();
     }
 
     public ListIterator<Tree> listIterator() {
-        return forest.listIterator();
+        return trees.listIterator();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if(this == object) {
+            return true;
+        }
+        if(object == null) {
+            return false;
+        }
+        if(!this.getClass().equals(object.getClass())) {
+            return false;
+        }
+        Forest obj = (Forest) object;
+        if(this.hashCode() != obj.hashCode()) {
+            return false;
+        }
+        return this.trees.equals(obj.getTrees());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 61 * hash + Objects.hashCode(this.trees);
+        return hash;
     }
 }

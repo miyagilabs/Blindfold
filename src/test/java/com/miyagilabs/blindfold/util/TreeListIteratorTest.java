@@ -212,6 +212,6 @@ public class TreeListIteratorTest {
     public void testAdd() {
         ListIterator<Node> treeListIterator2 = new TreeListIterator(tree2);
         treeListIterator2.next();
-        treeListIterator2.set(null);
+        treeListIterator2.add(null);
     }
 }
