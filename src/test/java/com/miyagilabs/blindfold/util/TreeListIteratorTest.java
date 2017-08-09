@@ -40,7 +40,7 @@ public class TreeListIteratorTest {
     private final Tree tree2;
 
     public TreeListIteratorTest() throws IOException {
-        ClassLoader classLoader = TreeListIteratorTest.class.getClassLoader();
+        ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());

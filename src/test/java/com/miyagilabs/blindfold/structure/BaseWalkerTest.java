@@ -18,7 +18,6 @@ package com.miyagilabs.blindfold.structure;
 
 import static org.junit.Assert.assertEquals;
 
-import com.miyagilabs.blindfold.util.TreeListIteratorTest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -36,7 +35,7 @@ public class BaseWalkerTest {
     private Walker walker;
 
     public BaseWalkerTest() throws IOException {
-        ClassLoader classLoader = TreeListIteratorTest.class.getClassLoader();
+        ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());
@@ -45,7 +44,7 @@ public class BaseWalkerTest {
 
     @Before
     public void setUp() throws IOException {
-        ClassLoader classLoader = TreeListIteratorTest.class.getClassLoader();
+        ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());

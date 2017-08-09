@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miyagilabs.blindfold.Demo">
+<GridPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miyagilabs.blindfold.Blindfold">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="500.0" />
     </columnConstraints>
