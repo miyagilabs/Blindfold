@@ -24,15 +24,14 @@ import java.util.LinkedList;
  *
  * @author Görkem Mülayim
  */
-public class BaseWalker implements Walker {
+public class TreeViewTraverser {
     private final String[] code;
     private final LinkedList<TreeNode> linkedList;
     private TreeNode currentTreeNode;
 
-    public BaseWalker(String code) {
+    public TreeViewTraverser(String code) {
         this.code = code.split("\\n");
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(code);
+        Forest forest = TreeViewGenerator.generate(code);
         linkedList = new LinkedList<>();
         for(int i = 0; i < forest.size(); i++) {
             linkedList.addLast(forest.getTree(i).getRoot());
@@ -41,12 +40,10 @@ public class BaseWalker implements Walker {
 
     }
 
-    @Override
     public String viewCurrent() {
         return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
-    @Override
     public String stepIn() {
         if(currentTreeNode.getChildCount() == 0) {
             return code[currentTreeNode.getContext().start.getLine() - 1].trim();
@@ -59,7 +56,6 @@ public class BaseWalker implements Walker {
         return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
-    @Override
     public String stepOut() {
         if(currentTreeNode.getParent() == null) {
             return code[currentTreeNode.getContext().start.getLine() - 1].trim();
@@ -71,7 +67,6 @@ public class BaseWalker implements Walker {
         return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
-    @Override
     public String stepForward() {
         int index = linkedList.indexOf(currentTreeNode);
         if(index + 1 < linkedList.size()) {
@@ -80,7 +75,6 @@ public class BaseWalker implements Walker {
         return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
-    @Override
     public String stepBackward() {
         int index = linkedList.indexOf(currentTreeNode);
         if(index - 1 >= 0) {

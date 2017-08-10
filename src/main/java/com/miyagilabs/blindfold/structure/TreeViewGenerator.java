@@ -27,22 +27,18 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  *
  * @author Görkem Mülayim
  */
-public class BaseGenerator implements Generator {
-    private Forest forest;
+public final class TreeViewGenerator {
 
-    @Override
-    public Forest getForest() {
-        return forest;
+    private TreeViewGenerator() {
     }
 
-    @Override
-    public Forest generate(String code) {
-        forest = new Forest();
+    public static Forest generate(String code) {
         ANTLRInputStream in = new ANTLRInputStream(code);
         Java8Lexer lexer = new Java8Lexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Java8Parser parser = new Java8Parser(tokens);
         Java8Parser.CompilationUnitContext ast = parser.compilationUnit();
+        Forest forest = new Forest();
         Listener listener = new Listener(forest);
         ParseTreeWalker.DEFAULT.walk(listener, ast);
         return forest;

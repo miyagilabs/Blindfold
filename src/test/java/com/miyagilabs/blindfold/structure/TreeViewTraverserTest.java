@@ -30,16 +30,16 @@ import org.junit.Test;
  *
  * @author Görkem Mülayim
  */
-public class BaseWalkerTest {
+public class TreeViewTraverserTest {
     private static final String SAMPLE_CLASS_PATH = "sample/SampleClass.java";
-    private Walker walker;
+    private TreeViewTraverser treeViewTraverser;
 
-    public BaseWalkerTest() throws IOException {
+    public TreeViewTraverserTest() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());
-        walker = new BaseWalker(code);
+        treeViewTraverser = new TreeViewTraverser(code);
     }
 
     @Before
@@ -48,71 +48,71 @@ public class BaseWalkerTest {
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());
-        walker = new BaseWalker(code);
+        treeViewTraverser = new TreeViewTraverser(code);
     }
 
     /**
-     * Test of viewCurrent method, of class BaseWalker.
+     * Test of viewCurrent method, of class TreeViewTraverser.
      */
     @Test
     public void testViewCurrent() {
         String expResult = "public class SampleClass { // Tree 1, tree node 1";
-        String result = walker.viewCurrent();
-        assertEquals("viewCurrent method, of class BaseWalker's expected result is wrong.",
+        String result = treeViewTraverser.viewCurrent();
+        assertEquals("viewCurrent method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
     }
 
     /**
-     * Test of stepIn method, of class BaseWalker.
+     * Test of stepIn method, of class TreeViewTraverser.
      */
     @Test
     public void testStepIn() {
         String expResult = "private SampleClass() { // Tree 1, tree node 2";
-        String result = walker.stepIn();
-        assertEquals("stepIn method, of class BaseWalker's expected result is wrong.",
+        String result = treeViewTraverser.stepIn();
+        assertEquals("stepIn method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
 
         expResult = "if(0 == 0) { // Tree 1, tree node 3";
-        result = walker.stepIn();
-        assertEquals("stepIn method, of class BaseWalker's expected result is wrong.",
+        result = treeViewTraverser.stepIn();
+        assertEquals("stepIn method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
 
         expResult = "if(0 == 0) { // Tree 1, tree node 3";
-        result = walker.stepIn();
-        assertEquals("stepIn method, of class BaseWalker's expected result is wrong.",
+        result = treeViewTraverser.stepIn();
+        assertEquals("stepIn method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
     }
 
     /**
-     * Test of stepOut method, of class BaseWalker.
+     * Test of stepOut method, of class TreeViewTraverser.
      */
     @Test
     public void testStepOut() {
         String expResult = "public class SampleClass { // Tree 1, tree node 1";
-        String result = walker.stepOut();
-        assertEquals("stepOut method, of class BaseWalker's expected result is wrong.",
+        String result = treeViewTraverser.stepOut();
+        assertEquals("stepOut method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
     }
 
     /**
-     * Test of stepForward method, of class BaseWalker.
+     * Test of stepForward method, of class TreeViewTraverser.
      */
     @Test
     public void testStepForward() {
         String expResult = "class SampleSecondClass { // Tree 2, tree node 1";
-        String result = walker.stepForward();
-        assertEquals("stepForward method, of class BaseWalker's expected result is wrong.",
+        String result = treeViewTraverser.stepForward();
+        assertEquals("stepForward method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
     }
 
     /**
-     * Test of stepBackward method, of class BaseWalker.
+     * Test of stepBackward method, of class TreeViewTraverser.
      */
     @Test
     public void testStepBackward() {
         String expResult = "public class SampleClass { // Tree 1, tree node 1";
-        String result = walker.stepBackward();
-        assertEquals("stepBackward method, of class BaseWalker's expected result is wrong.",
+        String result = treeViewTraverser.stepBackward();
+        assertEquals("stepBackward method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
     }
 
@@ -123,24 +123,24 @@ public class BaseWalkerTest {
     public void testRealWorldScenario() {
         String expResult = "private SampleClass() { // Tree 1, tree node 2";
         // Move to tree 1, tree node 3.
-        walker.stepIn();
-        walker.stepIn();
-        walker.stepIn();
+        treeViewTraverser.stepIn();
+        treeViewTraverser.stepIn();
+        treeViewTraverser.stepIn();
         // Move back to tree 1, tree node 2.
-        String result = walker.stepOut();
-        assertEquals("Real world scenario result has faild for BaseWalker.",
+        String result = treeViewTraverser.stepOut();
+        assertEquals("Real world scenario result has faild for TreeViewTraverser.",
                 expResult, result);
 
         expResult = "private static class SampleStaticInnerClass "
                 + "extends SampleClass { // Tree 1, tree node 15";
         // Move from tree 1, tree node 2 to tree 1, tree node 15.
-        walker.stepForward();
-        walker.stepForward();
-        walker.stepForward();
-        walker.stepBackward();
-        walker.stepForward();
-        result = walker.stepForward();
-        assertEquals("Real world scenario result has faild for BaseWalker.",
+        treeViewTraverser.stepForward();
+        treeViewTraverser.stepForward();
+        treeViewTraverser.stepForward();
+        treeViewTraverser.stepBackward();
+        treeViewTraverser.stepForward();
+        result = treeViewTraverser.stepForward();
+        assertEquals("Real world scenario result has faild for TreeViewTraverser.",
                 expResult, result);
     }
 }

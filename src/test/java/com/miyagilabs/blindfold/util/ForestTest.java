@@ -18,8 +18,7 @@ package com.miyagilabs.blindfold.util;
 
 import static org.junit.Assert.assertEquals;
 
-import com.miyagilabs.blindfold.structure.BaseGenerator;
-import com.miyagilabs.blindfold.structure.Generator;
+import com.miyagilabs.blindfold.structure.TreeViewGenerator;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -75,10 +74,9 @@ public class ForestTest {
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());
-        Generator generator = new BaseGenerator();
 
-        Forest forest1 = generator.generate(code);
-        Forest forest2 = generator.generate(code);
+        Forest forest1 = TreeViewGenerator.generate(code);
+        Forest forest2 = TreeViewGenerator.generate(code);
         expResult = true;
         result = forest1.equals(forest2);
         assertEquals("equals method, of class Forest's expected result is wrong.", expResult,

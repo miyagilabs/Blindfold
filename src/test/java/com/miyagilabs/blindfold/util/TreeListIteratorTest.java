@@ -19,8 +19,7 @@ package com.miyagilabs.blindfold.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.miyagilabs.blindfold.structure.BaseGenerator;
-import com.miyagilabs.blindfold.structure.Generator;
+import com.miyagilabs.blindfold.structure.TreeViewGenerator;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -44,8 +43,7 @@ public class TreeListIteratorTest {
         File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());
-        Generator generator = new BaseGenerator();
-        Forest forest = generator.generate(code);
+        Forest forest = TreeViewGenerator.generate(code);
         tree1 = forest.getTree(0);
         tree2 = forest.getTree(1);
     }

@@ -16,8 +16,7 @@
  */
 package com.miyagilabs.blindfold;
 
-import com.miyagilabs.blindfold.structure.BaseWalker;
-import com.miyagilabs.blindfold.structure.Walker;
+import com.miyagilabs.blindfold.structure.TreeViewTraverser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -51,7 +50,7 @@ public class Blindfold extends Application implements Initializable, EventHandle
     @FXML
     private Label label;
     private Stage primaryStage;
-    private Walker walker;
+    private TreeViewTraverser treeViewTraverser;
 
     public static void main(String[] args) {
         launch(args);
@@ -64,8 +63,8 @@ public class Blindfold extends Application implements Initializable, EventHandle
             File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
             byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
             String code = new String(encoded, Charset.defaultCharset());
-            walker = new BaseWalker(code);
-            label.setText(walker.viewCurrent());
+            treeViewTraverser = new TreeViewTraverser(code);
+            label.setText(treeViewTraverser.viewCurrent());
         } catch(IOException ex) {
             Logger.getLogger(Blindfold.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,21 +89,21 @@ public class Blindfold extends Application implements Initializable, EventHandle
 
     @Override
     public void handle(KeyEvent event) {
-        if(walker == null) {
+        if(treeViewTraverser == null) {
             return;
         }
         switch(event.getCode()) {
             case UP:
-                label.setText(walker.stepBackward());
+                label.setText(treeViewTraverser.stepBackward());
                 break;
             case DOWN:
-                label.setText(walker.stepForward());
+                label.setText(treeViewTraverser.stepForward());
                 break;
             case LEFT:
-                label.setText(walker.stepOut());
+                label.setText(treeViewTraverser.stepOut());
                 break;
             case RIGHT:
-                label.setText(walker.stepIn());
+                label.setText(treeViewTraverser.stepIn());
                 break;
         }
     }
@@ -118,7 +117,7 @@ public class Blindfold extends Application implements Initializable, EventHandle
         }
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());
-        walker = new BaseWalker(code);
-        label.setText(walker.viewCurrent());
+        treeViewTraverser = new TreeViewTraverser(code);
+        label.setText(treeViewTraverser.viewCurrent());
     }
 }
