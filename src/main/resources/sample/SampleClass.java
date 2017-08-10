@@ -58,7 +58,15 @@ public class SampleClass { // Tree 1, tree node 1
 
     private static class SampleStaticInnerClass extends SampleClass { // Tree 1, tree node 15
     }
+
+    private interface SampleInnerInterface { // Tree 2, tree node 1
+        void method();
+    }
 }
 
 class SampleSecondClass { // Tree 2, tree node 1
+}
+
+interface SampleInterface { // Tree 2, tree node 1
+    void method();
 }

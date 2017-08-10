@@ -55,7 +55,7 @@ public class TreeIteratorTest {
     public void testHasNext() {
         Iterator<TreeNode> treeIterator1 = new TreeIterator(tree1);
         boolean expResult = false;
-        for(int i = 0; i < 15; i++) {
+        for(int i = 0; i < 16; i++) {
             treeIterator1.next();
         }
         boolean result = treeIterator1.hasNext();
