@@ -45,6 +45,7 @@ import javafx.stage.Stage;
  * @author Görkem Mülayim
  */
 public class Blindfold extends Application implements Initializable, EventHandler<KeyEvent> {
+    private static final Logger LOGGER = Logger.getLogger(Blindfold.class.getName());
     private static final String SAMPLE_CLASS_PATH = "sample/SampleClass.java";
 
     @FXML
@@ -66,7 +67,7 @@ public class Blindfold extends Application implements Initializable, EventHandle
             treeViewTraverser = new TreeViewTraverser(code);
             label.setText(treeViewTraverser.viewCurrent());
         } catch(IOException ex) {
-            Logger.getLogger(Blindfold.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
