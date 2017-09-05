@@ -19,7 +19,7 @@ package com.miyagilabs.blindfold.structure;
 import com.miyagilabs.blindfold.antlr4.Java8Lexer;
 import com.miyagilabs.blindfold.antlr4.Java8Parser;
 import com.miyagilabs.blindfold.util.Forest;
-import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
@@ -32,12 +32,14 @@ public final class TreeViewGenerator {
     private TreeViewGenerator() {
     }
 
-    public static Forest generate(String code) {
-        ANTLRInputStream in = new ANTLRInputStream(code);
-        Java8Lexer lexer = new Java8Lexer(in);
+    public static Forest generate(String code) throws SyntaxError {
+        Java8Lexer lexer = new Java8Lexer(CharStreams.fromString(code));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Java8Parser parser = new Java8Parser(tokens);
         Java8Parser.CompilationUnitContext ast = parser.compilationUnit();
+        if(parser.getNumberOfSyntaxErrors() > 0) {
+            throw new SyntaxError();
+        }
         Forest forest = new Forest();
         Listener listener = new Listener(forest);
         ParseTreeWalker.DEFAULT.walk(listener, ast);

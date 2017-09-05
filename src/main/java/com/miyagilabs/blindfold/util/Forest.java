@@ -51,10 +51,6 @@ public class Forest implements Iterable<Tree> {
         return Collections.unmodifiableList(trees);
     }
 
-    public int indexOfTree(Tree tree) {
-        return trees.indexOf(tree);
-    }
-
     public int size() {
         return trees.size();
     }

@@ -29,7 +29,13 @@ public class TreeViewTraverser {
     private final LinkedList<TreeNode> linkedList;
     private TreeNode currentTreeNode;
 
-    public TreeViewTraverser(String code) {
+    /**
+     *
+     * @param code The code to be traversed.
+     *
+     * @throws SyntaxError If the code contains syntax error(s).
+     */
+    public TreeViewTraverser(String code) throws SyntaxError {
         this.code = code.split("\\n");
         Forest forest = TreeViewGenerator.generate(code);
         linkedList = new LinkedList<>();

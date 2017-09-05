@@ -54,7 +54,16 @@ public class TreeViewTraverserTest {
     /**
      * Test of viewCurrent method, of class TreeViewTraverser.
      */
+    @Test(expected = SyntaxError.class)
+    public void testSyntaxError() {
+        new TreeViewTraverser("INTENTIONAL_SYNTAX_ERROR.");
+    }
+
+    /**
+     * Test of viewCurrent method, of class TreeViewTraverser.
+     */
     @Test
+
     public void testViewCurrent() {
         String expResult = "public class SampleClass { // Tree 1, tree node 1";
         String result = treeViewTraverser.viewCurrent();

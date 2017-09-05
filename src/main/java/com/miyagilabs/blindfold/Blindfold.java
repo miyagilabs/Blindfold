@@ -16,6 +16,7 @@
  */
 package com.miyagilabs.blindfold;
 
+import com.miyagilabs.blindfold.structure.SyntaxError;
 import com.miyagilabs.blindfold.structure.TreeViewTraverser;
 import java.io.File;
 import java.io.IOException;
@@ -64,10 +65,15 @@ public class Blindfold extends Application implements Initializable, EventHandle
             File file = new File(classLoader.getResource(SAMPLE_CLASS_PATH).getFile());
             byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
             String code = new String(encoded, Charset.defaultCharset());
-            treeViewTraverser = new TreeViewTraverser(code);
+            try {
+                treeViewTraverser = new TreeViewTraverser(code);
+            } catch(SyntaxError ex) {
+                LOGGER.log(Level.SEVERE, SAMPLE_CLASS_PATH + " file contains syntax error.");
+            }
             label.setText(treeViewTraverser.viewCurrent());
         } catch(IOException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, "An IO error occured while reading file: "
+                    + SAMPLE_CLASS_PATH, ex);
         }
     }
 
@@ -118,7 +124,12 @@ public class Blindfold extends Application implements Initializable, EventHandle
         }
         byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         String code = new String(encoded, Charset.defaultCharset());
-        treeViewTraverser = new TreeViewTraverser(code);
+        try {
+            treeViewTraverser = new TreeViewTraverser(code);
+        } catch(SyntaxError ex) {
+            label.setText("We can not parse the code due to syntax error.");
+            return;
+        }
         label.setText(treeViewTraverser.viewCurrent());
     }
 }
