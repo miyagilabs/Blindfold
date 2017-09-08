@@ -552,8 +552,12 @@ explicitConstructorInvocation
 	;
 
 enumDeclaration
-	:	classModifier* 'enum' Identifier superinterfaces? enumBody
+	:	enumDefinition enumBody
 	;
+
+enumDefinition
+    : classModifier* 'enum' Identifier superinterfaces?
+    ;
 
 enumBody
 	:	'{' enumConstantList? ','? enumBodyDeclarations? '}'

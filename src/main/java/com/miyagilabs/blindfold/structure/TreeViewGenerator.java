@@ -28,7 +28,6 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  * @author Görkem Mülayim
  */
 public final class TreeViewGenerator {
-
     private TreeViewGenerator() {
     }
 
@@ -41,8 +40,8 @@ public final class TreeViewGenerator {
             throw new SyntaxError();
         }
         Forest forest = new Forest();
-        Listener listener = new Listener(forest);
-        ParseTreeWalker.DEFAULT.walk(listener, ast);
+        TreeViewListener treeViewListener = new TreeViewListener(forest);
+        ParseTreeWalker.DEFAULT.walk(treeViewListener, ast);
         return forest;
     }
 }

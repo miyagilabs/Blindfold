@@ -978,6 +978,16 @@ public interface Java8Listener extends ParseTreeListener {
 	 */
 	void exitEnumDeclaration(Java8Parser.EnumDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Java8Parser#enumDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnumDefinition(Java8Parser.EnumDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#enumDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnumDefinition(Java8Parser.EnumDefinitionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Java8Parser#enumBody}.
 	 * @param ctx the parse tree
 	 */

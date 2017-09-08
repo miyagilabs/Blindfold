@@ -113,14 +113,14 @@ public class TreeViewTraverserTest {
         assertEquals("stepForward method, of class TreeViewTraverser's expected result is wrong.",
                 expResult, result);
 
-        expResult = "interface SampleInterface { // Tree 2, tree node 1";
+        expResult = "interface SampleInterface { // Tree 3, tree node 1";
 
-        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 2, tree node 1
+        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 3, tree node 1
 
         // Nothing to traverse.
-        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 2, tree node 1
-        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 2, tree node 1
-        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 2, tree node 1
+        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 3, tree node 1
+        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 3, tree node 1
+        treeViewTraverser.stepForward(); // interface SampleInterface { // Tree 3, tree node 1
 
         result = treeViewTraverser.stepForward();
         assertEquals("stepForward method, of class TreeViewTraverser's expected result is wrong.",

@@ -27,12 +27,12 @@ import java.util.Stack;
  *
  * @author Görkem Mülayim
  */
-public class Listener extends Java8BaseListener {
+public class TreeViewListener extends Java8BaseListener {
     private final Forest forest;
     private TreeNode currentTreeNode;
     private final Stack<TreeNode> parentStack;
 
-    public Listener(Forest forest) {
+    public TreeViewListener(Forest forest) {
         this.forest = forest;
         parentStack = new Stack<>();
     }
@@ -74,6 +74,26 @@ public class Listener extends Java8BaseListener {
 
     @Override
     public void exitNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
+        currentTreeNode = parentStack.pop();
+    }
+
+    @Override
+    public void enterEnumDeclaration(Java8Parser.EnumDeclarationContext ctx) {
+        if(currentTreeNode == null) {
+            currentTreeNode = new TreeNode(ctx.enumDefinition());
+            Tree tree = new Tree(currentTreeNode);
+            forest.addTree(tree);
+            parentStack.push(null);
+        }
+        else {
+            parentStack.push(currentTreeNode);
+            currentTreeNode = new TreeNode(ctx.enumDefinition());
+            parentStack.peek().addChild(currentTreeNode);
+        }
+    }
+
+    @Override
+    public void exitEnumDeclaration(Java8Parser.EnumDeclarationContext ctx) {
         currentTreeNode = parentStack.pop();
     }
 

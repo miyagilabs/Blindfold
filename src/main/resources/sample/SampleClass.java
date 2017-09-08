@@ -59,14 +59,17 @@ public class SampleClass { // Tree 1, tree node 1
     private static class SampleStaticInnerClass extends SampleClass { // Tree 1, tree node 15
     }
 
-    private interface SampleInnerInterface { // Tree 2, tree node 1
+    private interface SampleInnerInterface { // Tree 1, tree node 16
         void method();
+    }
+
+    private enum Enum { // Tree 1, tree node 17
     }
 }
 
 class SampleSecondClass { // Tree 2, tree node 1
 }
 
-interface SampleInterface { // Tree 2, tree node 1
+interface SampleInterface { // Tree 3, tree node 1
     void method();
 }
