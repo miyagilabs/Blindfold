@@ -142,7 +142,7 @@ public class TreeViewTraverserTest {
      * This test method combines calls to mimic a real world scenario.
      */
     @Test
-    public void testRealWorldScenario() {
+    public void testRealWorldScenario1() {
         String expResult = "private SampleClass() { // Tree 1, tree node 2";
         // Move to tree 1, tree node 3.
         treeViewTraverser.stepIn();
@@ -152,16 +152,21 @@ public class TreeViewTraverserTest {
         String result = treeViewTraverser.stepOut();
         assertEquals("Real world scenario result has faild for TreeViewTraverser.",
                 expResult, result);
+    }
 
-        expResult = "private static class SampleStaticInnerClass "
-                + "extends SampleClass { // Tree 1, tree node 15";
-        // Move from tree 1, tree node 2 to tree 1, tree node 15.
+    /**
+     * This test method combines calls to mimic a real world scenario.
+     */
+    @Test
+    public void testRealWorldScenario2() {
+        String expResult = "interface SampleInterface { // Tree 3, tree node 1";
+        // Move to tree 3, tree node 1.
         treeViewTraverser.stepForward();
         treeViewTraverser.stepForward();
         treeViewTraverser.stepForward();
         treeViewTraverser.stepBackward();
         treeViewTraverser.stepForward();
-        result = treeViewTraverser.stepForward();
+        String result = treeViewTraverser.stepForward();
         assertEquals("Real world scenario result has faild for TreeViewTraverser.",
                 expResult, result);
     }
