@@ -63,13 +63,11 @@ public class TreeViewTraverser {
     }
 
     public String stepOut() {
+        stepOut(currentTreeNode);
         if(currentTreeNode.getParent() == null) {
             return code[currentTreeNode.getContext().start.getLine() - 1].trim();
         }
         currentTreeNode = currentTreeNode.getParent();
-        for(int i = 0; i < currentTreeNode.getChildCount(); i++) {
-            linkedList.remove(currentTreeNode.getChild(i));
-        }
         return code[currentTreeNode.getContext().start.getLine() - 1].trim();
     }
 
@@ -87,5 +85,12 @@ public class TreeViewTraverser {
             currentTreeNode = linkedList.get(index - 1);
         }
         return code[currentTreeNode.getContext().start.getLine() - 1].trim();
+    }
+
+    private void stepOut(TreeNode treeNode) {
+        for(int i = 0; i < treeNode.getChildCount(); i++) {
+            stepOut(treeNode.getChild(i));
+            linkedList.remove(treeNode.getChild(i));
+        }
     }
 }
