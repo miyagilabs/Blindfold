@@ -39,6 +39,14 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import marytts.LocalMaryInterface;
+import marytts.MaryInterface;
+import marytts.exceptions.MaryConfigurationException;
+import marytts.exceptions.SynthesisException;
 
 /**
  * FXML Controller class
@@ -72,8 +80,8 @@ public class Blindfold extends Application implements Initializable, EventHandle
             }
             label.setText(treeViewTraverser.viewCurrent());
         } catch(IOException ex) {
-            LOGGER.log(Level.SEVERE, "An IO error occured while reading file: "
-                    + SAMPLE_CLASS_PATH, ex);
+            LOGGER.log(Level.SEVERE, "An IO error occured while reading file: " + SAMPLE_CLASS_PATH,
+                    ex);
         }
     }
 
@@ -99,19 +107,25 @@ public class Blindfold extends Application implements Initializable, EventHandle
         if(treeViewTraverser == null) {
             return;
         }
+        String line = "";
         switch(event.getCode()) {
             case UP:
-                label.setText(treeViewTraverser.stepBackward());
+                line = treeViewTraverser.stepBackward();
                 break;
             case DOWN:
-                label.setText(treeViewTraverser.stepForward());
+                line = treeViewTraverser.stepForward();
                 break;
             case LEFT:
-                label.setText(treeViewTraverser.stepOut());
+                line = treeViewTraverser.stepOut();
                 break;
             case RIGHT:
-                label.setText(treeViewTraverser.stepIn());
+                line = treeViewTraverser.stepIn();
                 break;
+        }
+        label.setText(line);
+        boolean speakEnabled = false;
+        if(speakEnabled) {
+            speakText(line);
         }
     }
 
@@ -131,5 +145,18 @@ public class Blindfold extends Application implements Initializable, EventHandle
             return;
         }
         label.setText(treeViewTraverser.viewCurrent());
+    }
+
+    private void speakText(String text) {
+        try {
+            MaryInterface marytts = new LocalMaryInterface();
+            AudioInputStream audio = marytts.generateAudio(text + ".");
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        } catch(MaryConfigurationException | SynthesisException | LineUnavailableException
+                | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+        }
     }
 }
